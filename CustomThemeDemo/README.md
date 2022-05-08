@@ -10,13 +10,21 @@ Some basic skills to custom theme.
 3. [~~內建 Nunjucks 模板引擎可以透過中文快速學習(相較於ejs複雜棄用)~~](https://nunjucks.bootcss.com/)
 4. [ejs 中文網站快速學習](https://ejs.bootcss.com/#promo)
    > <% '脚本' 标签，用于流程控制，无输出。
+   > 
    > <%_ 删除其前面的空格符
+   > 
    > <%= 输出数据到模板（输出是转义 HTML 标签）
+   > 
    > <%- 输出非转义的数据到模板
+   > 
    > <%# 注释标签，不执行、不输出内容
+   > 
    > <%% 输出字符串 '<%'
+   > 
    > %> 一般结束标签
+   > 
    > -%> 删除紧随其后的换行符
+   > 
    > _%> 将结束标签后面的空格符删除
 5. [hexo-theme-landscape](https://github.com/hexojs/hexo-theme-landscape)
 6. [Hexo 新增 Sass](https://jas0nhuang.github.io/2020/05/06/hexo-sass/)
