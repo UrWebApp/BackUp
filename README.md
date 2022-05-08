@@ -1,2 +1,3 @@
 # Portal
-We are a team serving web applications.
+
+Providing access or links to other sites.
