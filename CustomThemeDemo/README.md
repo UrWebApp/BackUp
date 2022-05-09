@@ -26,5 +26,6 @@ Some basic skills to custom theme.
    > -%> 删除紧随其后的换行符
    >
    > _%> 将结束标签后面的空格符删除
+5. [其實之前有個專案已研究過一些簡易 Demo 只是沒註解](https://github.com/Cara-Drumstick-Bug/Research-Co-writing/tree/master/Research-Hellow-Hexo)
 5. [hexo-theme-landscape](https://github.com/hexojs/hexo-theme-landscape)
 6. [Hexo 新增 Sass](https://jas0nhuang.github.io/2020/05/06/hexo-sass/)
