@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Racing+Sans+One&display=swap");
+.navLogo {
+  width: 50px;
+}
+
+header {
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10000000;
+  position: fixed;
+  left: 50%;
+  margin-left: -570px !important;
+}
+
+.brandName {
+  font-family: 'Racing Sans One', cursive !important;
+}
+
+.heroImageOne {
+  background-image: url("https://images.unsplash.com/photo-1611716524065-622312678d68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1111&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.heroImageTwo {
+  background-image: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.drop-shadow, .swiper-button-next:after, .swiper-button-prev:after {
+  -webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+}
+
+html,
+body {
+  font-family: "Noto Sans TC", sans-serif;
+}
