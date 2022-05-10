@@ -1,0 +1,44 @@
+search:
+  title: 搜尋
+  keyword: 關鍵字
+  status:
+    success: v
+    error: x
+
+postTotal: _%d_
+
+paginator:
+  pre: 上一頁
+  next: 下一頁
+
+post:
+  toc: 目錄
+  pre: 上一篇
+  next: 下一篇
+
+home:
+  title: 首頁
+
+archive:
+  title: 檢索
+  subtitle: 檢索
+
+tag:
+  title: 標籤
+  subtitle: 標籤
+
+category:
+  title: 作品
+  subtitle: 作品
+
+about:
+  title: 團隊
+  subtitle: 團隊
+
+page404:
+  title: '404'
+  subtitle: '404'
+
+links:
+  title: 交換連結
+  subtitle: 交換連結

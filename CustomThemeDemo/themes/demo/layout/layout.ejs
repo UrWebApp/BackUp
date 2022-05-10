@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- partial('_Partial/head') %>
+</head>
+
+<body>
+
+    <header>
+        header
+        <%- partial('_Partial/header') %>
+            header
+    </header>
+
+    <main>
+        main
+        <%- body %>
+            main
+    </main>
+
+    <footer>
+        footer
+        <%- partial('_Partial/footer') %>
+            footer
+    </footer>
+
+    <%# 以下會輸出至終端機而不是前端 Console %>
+    <% console.log('config',new Date,config) %>
+    <% console.log('theme',new Date,theme) %>
+    RSS <%= theme.rss %>
+    
+</body>
+
+</html>

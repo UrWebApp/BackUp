@@ -1,0 +1,29 @@
+<div class="list-group">
+
+  <% if(params.postTotal < 10) { %>
+     <p class="h4">才 <%= __('postTotal', params.postTotal) %> 篇也太偷懶了吧 !! 各位編輯們... 加把勁阿!! >_< </p>
+  <% } %>
+
+  <% if(params.postTotal > 10) { %>
+    <p class="h4">哇 <%= __('postTotal', params.postTotal) %> 篇了，努力耕耘有一天會有成效的 !! ^_^</p>
+ <% } %>
+
+ <% if(params.postTotal > 50) { %>
+  <p class="h4">終於 <%= __('postTotal', params.postTotal) %> 篇了，離成功不遠了繼續、持續努力 !! ^_^</p>
+<% } %>
+
+  <hr>
+  <% var dateCursor %>
+  <% page.posts.each(function (post) { %>
+    <% if(date(post.date, "YYYY") !== dateCursor) { %>
+      <% dateCursor = date(post.date, "YYYY") %>
+      <p class="h5"><%= dateCursor %></p>
+    <% } %>
+    <a href="<%= url_for(post.path) %>" class="list-group-item list-group-item-action">
+      <span class="archive-post-title"><%= post.title %></span>
+      <time style="float: right;"><%= post.author %>✎<%= date(post.date, "MM-DD") %></time>
+    </a>
+  <% }) %>
+</div>
+
+<%- partial('_partial/paginator') %>
