@@ -14,7 +14,8 @@ header h2 {
 }
 
 .BrandName {
-  font-family: "Racing Sans One", cursive !important;
+  margin: 0 1rem;
+  font-family: 'Racing Sans One', cursive !important;
 }
 
 .HeroImageOne {
