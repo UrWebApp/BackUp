@@ -15,3 +15,42 @@ $Url2: "https://picsum.photos/3000/3000?random";
 .HeroImageTwo {
     @include HeroImage($Url2);
 }
+
+.Title {
+    font-size: 4rem;
+    line-height: 1;
+    max-width: 50%;
+    white-space: normal;
+    word-break: break-word;
+    color: #FFF;
+    z-index: 100;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.SubTitle {
+    font-size: 2rem;
+    line-height: 1;
+    max-width: 50%;
+    white-space: normal;
+    word-break: break-word;
+    color: #FFF;
+    z-index: 100;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.Text {
+    font-size: 1rem;
+    line-height: 1;
+    max-width: 50%;
+    white-space: normal;
+    word-break: break-word;
+    color: #FFF;
+    z-index: 100;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-weight: normal;
+}
