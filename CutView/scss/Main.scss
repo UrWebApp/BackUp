@@ -1,8 +1,19 @@
 @import "Nav";
 @import "HeroImage";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Racing+Sans+One&display=swap');
 
 html,
 body {
-    font-family: "Noto Sans TC", sans-serif;
+    font-family: CustomSansSerif;
+}
+
+@font-face{
+    font-family: CustomSansSerif;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap');
+    unicode-range: U+4E00-9FFF;
+}
+
+@font-face{
+    font-family: CustomSansSerif;
+    src: url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+    unicode-range: U+00-024F;
 }
