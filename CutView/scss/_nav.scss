@@ -1,14 +1,16 @@
-.navLogo{
+.NavLogo {
     width: 50px;
 }
-header{
+
+header {
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.5);
-    z-index:10000000;
+    z-index: 10000000;
     position: fixed;
     left: 50%;
-    margin-left:-570px !important;
+    margin-left: -570px !important;
 }
-.brandName {
+
+.BrandName {
     font-family: 'Racing Sans One', cursive !important;
 }

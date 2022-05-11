@@ -16,3 +16,5 @@ Convert the screen to html in consideration of modularization.
 4. [Swiper 基本原理參考](https://ithelp.ithome.com.tw/articles/10197850)
    1. 原理是靠丟進去 API 的 class 字段去控制 DOM
    2. [應該看 Swiper 中文站的範例就夠實作了](https://www.swiper.com.cn/api/start/new.html)
+5. [LiveSassCompiler 設定](https://mocationer.com/scss-live-sass-compiler/)
+6. [Picsum 測試用假圖](https://picsum.photos/)

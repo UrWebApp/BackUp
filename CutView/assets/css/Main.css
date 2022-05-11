@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Racing+Sans+One&display=swap");
+.NavLogo {
+  width: 50px;
+}
+
+header {
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10000000;
+  position: fixed;
+  left: 50%;
+  margin-left: -570px !important;
+}
+
+.BrandName {
+  font-family: 'Racing Sans One', cursive !important;
+}
+
+.HeroImageOne {
+  background-image: url("https://picsum.photos/3000/3000");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.HeroImageTwo {
+  background-image: url("https://picsum.photos/3000/3000?random");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+html,
+body {
+  font-family: "Noto Sans TC", sans-serif;
+}
+/*# sourceMappingURL=Main.css.map */
