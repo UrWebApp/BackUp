@@ -1,24 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Racing+Sans+One&display=swap");
 .NavLogo {
   width: 50px;
-  -webkit-filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
-          filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 header {
   z-index: 10000000;
   position: fixed;
   padding: 1.2rem;
-}
-
-header h2 {
   margin: 5px 10px;
-  text-shadow: 3px 1px 1px red;
 }
 
 .BrandName {
   margin: 0 1rem;
-  font-family: 'Racing Sans One', cursive !important;
+  font-family: "Racing Sans One", cursive !important;
   color: white;
   text-shadow: 2px 2px 2px black;
 }
@@ -38,5 +33,4 @@ header h2 {
 html,
 body {
   font-family: "Noto Sans TC", sans-serif;
-}
-/*# sourceMappingURL=Main.css.map */
+}/*# sourceMappingURL=main.css.map */
