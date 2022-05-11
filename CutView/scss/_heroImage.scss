@@ -1,21 +1,16 @@
-$url1: "https://images.unsplash.com/photo-1611716524065-622312678d68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1111&q=80";
+$Url1: "https://images.unsplash.com/photo-1611716524065-622312678d68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1111&q=80";
 
-$url2:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80";
+$Url2:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80";
 
-@mixin heroImage($url) {
+@mixin HeroImage($url) {
     background-image: url($url);
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.heroImageOne {
-    @include heroImage($url1);
+.HeroImageOne {
+    @include HeroImage($Url1);
 }
-.heroImageTwo{
-    @include heroImage($url2);
-}
-
-.drop-shadow,.swiper-button-next:after,.swiper-button-prev:after {
-    -webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
-    filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7))
+.HeroImageTwo{
+    @include HeroImage($Url2);
 }
