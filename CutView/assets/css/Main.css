@@ -11,6 +11,11 @@ header {
   padding: 1.2rem;
 }
 
+header h2 {
+  margin: 5px 10px;
+  text-shadow: 3px 1px 1px red;
+}
+
 .BrandName {
   margin: 0 1rem;
   font-family: 'Racing Sans One', cursive !important;

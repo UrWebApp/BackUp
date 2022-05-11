@@ -7,6 +7,10 @@ header {
     z-index: 10000000;
     position: fixed;
     padding: 1.2rem;
+    h2{
+        margin: 5px 10px;
+        text-shadow: 3px 1px 1px red;
+    }
 }
 
 .BrandName {
