@@ -13,6 +13,7 @@ header {
 }
 
 .BrandName {
+  margin: 0 1rem;
   font-family: 'Racing Sans One', cursive !important;
 }
 
