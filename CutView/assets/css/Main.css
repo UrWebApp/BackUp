@@ -4,16 +4,13 @@
 }
 
 header {
-  margin: 0 auto;
   background: rgba(255, 255, 255, 0.5);
   z-index: 10000000;
   position: fixed;
-  left: 50%;
-  margin-left: -570px !important;
 }
 
 .BrandName {
-  font-family: 'Racing Sans One', cursive !important;
+  font-family: "Racing Sans One", cursive !important;
 }
 
 .HeroImageOne {
@@ -31,5 +28,4 @@ header {
 html,
 body {
   font-family: "Noto Sans TC", sans-serif;
-}
-/*# sourceMappingURL=Main.css.map */
+}/*# sourceMappingURL=main.css.map */
