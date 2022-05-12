@@ -209,7 +209,14 @@
   <!-- Initialize Swiper -->
   <script>
     let swiper = new Swiper(".mySwiper", {
-      speed: 600,
+      loop: true,
+      autoplay: {
+        delay: 20000,
+        disableOnInteraction: false,
+      },
+      speed: 500,
+      preloadImages: true,
+      updateOnImagesReady: true,
       parallax: true,
       navigation: {
         nextEl: ".swiper-button-next",
