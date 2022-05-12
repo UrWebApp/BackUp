@@ -7,14 +7,27 @@
 header {
   z-index: 10000000;
   position: fixed;
-  padding: 1.2rem;
   margin: 5px 10px;
+}
+
+.LogoBox a {
+  text-decoration: none;
 }
 
 .BrandName {
   margin: 0 1rem;
   color: white;
-  text-shadow: 2px 2px 7px #777777;
+  text-shadow: 1px 1px 4px black;
+}
+
+.nav-link {
+  color: white;
+  text-shadow: 1px 1px 4px black;
+}
+
+.nav-link:hover {
+  color: black;
+  text-shadow: 1px 1px 4px white;
 }
 
 .HeroImageOne {
@@ -29,41 +42,133 @@ header {
   background-repeat: no-repeat;
 }
 
-.Title {
-  font-size: 4rem;
-  line-height: 1;
-  max-width: 50%;
-  white-space: normal;
-  word-break: break-word;
+.pagination-number {
+  font-size: 1.8rem;
   color: #FFF;
-  z-index: 100;
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
-  font-weight: normal;
+  font-family: 'Oswald', sans-serif;
+  padding: 0 0.5rem;
 }
 
-.SubTitle {
-  font-size: 2rem;
-  line-height: 1;
-  max-width: 50%;
-  white-space: normal;
-  word-break: break-word;
-  color: #FFF;
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
-  font-weight: normal;
+.pagination-separator {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
 }
 
-.Text {
-  font-size: 1rem;
-  line-height: 1;
-  max-width: 50%;
-  white-space: normal;
-  word-break: break-word;
-  color: #FFF;
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
-  font-weight: normal;
+@media (min-width: 45em) {
+  .pagination-separator {
+    display: block;
+  }
+}
+
+.pagination-separator-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 5rem;
+  left: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: .3s opacity;
+  transition: .3s opacity;
+  z-index: 10;
+}
+
+.swiper-pagination-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-pagination-item .pagination-number {
+  opacity: 0.5;
+}
+
+.swiper-pagination-item:hover, .swiper-pagination-item:focus {
+  cursor: pointer;
+}
+
+.swiper-pagination-item:last-of-type .pagination-separator {
+  width: 0;
+}
+
+.swiper-pagination-item.active .pagination-number {
+  opacity: 1;
+}
+
+.swiper-pagination-item.active .pagination-separator {
+  width: 10vw;
+}
+
+.marquee-container {
+  width: 100vw;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee {
+  padding-left: 100vw;
+  display: inline-block;
+  -webkit-animation: marquee 5s linear infinite;
+          animation: marquee 5s linear infinite;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 1px 1px 4px black;
+}
+
+.marquee.paused, .marquee-container:hover .marquee {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+
+@-webkit-keyframes marquee {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
 }
 
 html,
