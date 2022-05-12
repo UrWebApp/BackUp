@@ -6,12 +6,22 @@
 header {
     z-index: 10000000;
     position: fixed;
-    padding: 1.2rem;
-        margin: 5px 10px;
+    margin: 5px 10px;
+}
+
+.LogoBox {
+    a{
+        text-decoration: none;
+    }
 }
 
 .BrandName {
-    margin:0 1rem;
+    margin: 0 1rem;
     color: white;
-    text-shadow: 2px 2px 7px #777777;
+    text-shadow: 1px 1px 4px black;
+}
+
+.nav-link{
+    color: white;
+    text-shadow: 1px 1px 4px black;
 }
