@@ -9,7 +9,9 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.css'
     integrity='sha512-Ty5JVU2Gi9x9IdqyHN0ykhPakXQuXgGY5ZzmhgZJapf3CpmQgbuhGxmI4tsc8YaXM+kibfrZ+CNX4fur14XNRg=='
     crossorigin='anonymous' />
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
+    integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
+    crossorigin='anonymous' />
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="../assets/css/Main.css" />
 
@@ -67,17 +69,18 @@
     .swiper-button-prev::after {
       text-shadow: 1px 1px 4px black;
     }
-
   </style>
 </head>
 
 <body>
   <div class="container-fluid p-0 position-relative vh-100">
-    <header class="d-flex container-fluid">
+    <header class="container-fluid p-0 mt-0">
+      <marquee>目前工期以至五月底，急件請E-mail聯絡!!</marquee>
       <div class="container d-flex justify-content-between">
         <div class="LogoBox d-flex">
-          <img src="../assets/Img/WebWangLogFinal.svg" class="img-fluid NavLogo">
-          <h2 class="BrandName">WebWang</h2>
+          <a href="#" class="d-flex align-items-center"><img src="../assets/Img/WebWangLogFinal.svg" class="img-fluid NavLogo">
+            <h2 class="BrandName">WebWang</h2>
+          </a>
         </div>
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
@@ -154,26 +157,26 @@
         prevEl: ".swiper-button-prev",
       },
       pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                        bulletClass: 'swiper-pagination-item',
-                        bulletActiveClass: 'active',
-                        clickableClass: 'swiper-pagination-clickable',
-                        modifierClass: 'swiper-pagination-',
-                        renderBullet: function (index, className) {
+        el: '.swiper-pagination',
+        clickable: true,
+        bulletClass: 'swiper-pagination-item',
+        bulletActiveClass: 'active',
+        clickableClass: 'swiper-pagination-clickable',
+        modifierClass: 'swiper-pagination-',
+        renderBullet: function (index, className) {
 
-                            var slideIndex = index,
-                                number = (index <= 10) ? '0' + (slideIndex + 1) : (slideIndex + 1);
+          var slideIndex = index,
+            number = (index <= 10) ? '0' + (slideIndex + 1) : (slideIndex + 1);
 
-                            var paginationItem = '<span class="swiper-pagination-item">';
-                            paginationItem += '<span class="pagination-number">' + number + '</span>';
-                            paginationItem = (index <= 10) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
-                            paginationItem += '</span>';
+          var paginationItem = '<span class="swiper-pagination-item">';
+          paginationItem += '<span class="pagination-number">' + number + '</span>';
+          paginationItem = (index <= 10) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
+          paginationItem += '</span>';
 
-                            return paginationItem;
+          return paginationItem;
 
-                        },
-                    },
+        },
+      },
     });
   </script>
 </body>
