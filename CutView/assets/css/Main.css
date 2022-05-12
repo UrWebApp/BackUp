@@ -86,7 +86,7 @@ header {
   z-index: 100;
   text-transform: uppercase;
   font-weight: normal;
-  text-shadow: 1px 1px 4px black;
+  text-shadow: 2px 2px 2px black;
 }
 
 .SubTitle {
@@ -98,7 +98,7 @@ header {
   color: #FFF;
   text-transform: uppercase;
   font-weight: normal;
-  text-shadow: 1px 1px 4px black;
+  text-shadow: 2px 2px 2px black;
 }
 
 .Text {
@@ -110,7 +110,7 @@ header {
   color: #FFF;
   text-transform: uppercase;
   font-weight: normal;
-  text-shadow: 1px 1px 4px black;
+  text-shadow: 2px 2px 2px black;
 }
 
 .swiper {
@@ -233,6 +233,7 @@ header {
   text-shadow: 1px 1px 4px black;
   -webkit-box-shadow: 1px 1px 1px black;
           box-shadow: 1px 1px 1px black;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .button-cta:hover {
