@@ -17,6 +17,11 @@ header {
   text-shadow: 1px 1px 4px black;
 }
 
+.nav-link {
+  color: white;
+  text-shadow: 1px 1px 4px black;
+}
+
 .HeroImageOne {
   background-image: url("https://picsum.photos/3000/3000");
   background-size: cover;
