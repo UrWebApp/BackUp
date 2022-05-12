@@ -36,6 +36,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
 
 .TextBox {
     max-width: 930px;
+    justify-content: center;
 }
 
 .Title {
@@ -90,7 +91,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
         transition: .3s opacity;
         z-index: 10;
         text-shadow: 1px 1px 4px black;
-
+        bottom: 40rem !important;
         &-item {
             display: flex;
             align-items: center;
@@ -156,7 +157,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
     height: 2px;
     background: rgba(#FFFFFF, 0.25);
     transition: all .3s ease;
-    bottom: 37rem;
+    text-shadow: 1px 1px 4px black;
     &-loader {
         position: absolute;
         top: 0;
