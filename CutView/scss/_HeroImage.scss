@@ -32,8 +32,6 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
     }
 }
 
-
-
 .TextBox {
     margin-top:20rem;
     
@@ -48,7 +46,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
     z-index: 100;
     text-transform: uppercase;
     font-weight: normal;
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 2px 2px 2px black;
 }
 
 .SubTitle {
@@ -60,7 +58,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
     color: #FFF;
     text-transform: uppercase;
     font-weight: normal;
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 2px 2px 2px black;
 }
 
 .Text {
@@ -72,7 +70,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
     color: #FFF;
     text-transform: uppercase;
     font-weight: normal;
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 2px 2px 2px black;
 }
 
 // Swiper
@@ -143,7 +141,6 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
 .pagination-number {
     font-size: 1.2rem;
     color: #FFF;
-    font-family: 'Oswald', sans-serif;
     padding: 0 0.5rem;
 }
 
@@ -188,6 +185,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
     color: white;
     text-shadow: 1px 1px 4px black;
     box-shadow: 1px 1px 1px black;
+    background-color: rgba(0, 0, 0, 0.2) ;
     &:hover
     {
         background-color: white;
