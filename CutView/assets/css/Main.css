@@ -26,15 +26,124 @@ header {
 }
 
 .HeroImageOne {
-  background-image: url("https://picsum.photos/3000/3000");
+  background-image: url("");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImageTwo {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.LogoBox {
+  padding: 1rem;
+}
+
+.Title {
+  font-size: 4rem;
+  line-height: 1;
+  white-space: normal;
+  word-break: break-word;
+  color: #FFF;
+  z-index: 100;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-shadow: 1px 1px 4px black;
+}
+
+.SubTitle {
+  font-size: 1rem;
+  line-height: 1.1rem;
+  max-width: 50%;
+  white-space: normal;
+  word-break: break-word;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-shadow: 1px 1px 4px black;
+}
+
+.Text {
+  line-height: 1.3;
+  font-size: 1rem;
+  max-width: 600px;
+  white-space: normal;
+  word-break: break-word;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-shadow: 1px 1px 4px black;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-pagination {
+  position: absolute;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: .3s opacity;
+  transition: .3s opacity;
+  z-index: 10;
+  bottom: 63% !important;
+  left: -200px !important;
+  text-shadow: 1px 1px 4px black;
+}
+
+.swiper-pagination-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-pagination-item .pagination-number {
+  opacity: 0.5;
+}
+
+.swiper-pagination-item:hover, .swiper-pagination-item:focus {
+  cursor: pointer;
+}
+
+.swiper-pagination-item:last-of-type .pagination-separator {
+  width: 0;
+}
+
+.swiper-pagination-item.active .pagination-number {
+  opacity: 1;
+}
+
+.swiper-pagination-item.active .pagination-separator {
+  width: 10vw;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.swiper-button-next::after {
+  text-shadow: 1px 1px 4px black;
+}
+
+.swiper-button-prev::after {
+  text-shadow: 1px 1px 4px black;
 }
 
 .pagination-number {
@@ -71,72 +180,22 @@ header {
           transform-origin: 0 0;
 }
 
-.swiper-pagination {
-  position: absolute;
-  bottom: 5rem;
-  left: 0;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-transition: .3s opacity;
-  transition: .3s opacity;
-  z-index: 10;
-}
-
-.swiper-pagination-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.swiper-pagination-item .pagination-number {
-  opacity: 0.5;
-}
-
-.swiper-pagination-item:hover, .swiper-pagination-item:focus {
-  cursor: pointer;
-}
-
-.swiper-pagination-item:last-of-type .pagination-separator {
-  width: 0;
-}
-
-.swiper-pagination-item.active .pagination-number {
-  opacity: 1;
-}
-
-.swiper-pagination-item.active .pagination-separator {
-  width: 10vw;
-}
-
 .marquee-container {
   width: 100vw;
   overflow: hidden;
   white-space: nowrap;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .marquee {
   padding-left: 100vw;
   display: inline-block;
-  -webkit-animation: marquee 5s linear infinite;
-          animation: marquee 5s linear infinite;
+  -webkit-animation: marquee 30s linear infinite;
+          animation: marquee 30s linear infinite;
   -webkit-animation-play-state: running;
           animation-play-state: running;
-  background: rgba(0, 0, 0, 0.5);
   color: white;
-  text-shadow: 1px 1px 4px black;
+  text-shadow: 1px 1px 2px black;
 }
 
 .marquee.paused, .marquee-container:hover .marquee {

@@ -2,16 +2,16 @@
     width: 100vw;
     overflow: hidden;
     white-space: nowrap;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .marquee {
     padding-left: 100vw;
     display: inline-block;
-    animation: marquee 5s linear infinite;
+    animation: marquee 30s linear infinite;
     animation-play-state: running;
-    background: rgba(0, 0, 0, 0.5);
     color: white;
-    text-shadow: 1px 1px 4px black;
+    text-shadow: 1px 1px 2px black;
 }
 
 .marquee.paused, .marquee-container:hover .marquee {

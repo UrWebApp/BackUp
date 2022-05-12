@@ -1,6 +1,8 @@
-$Url1: "https://picsum.photos/3000/3000";
+// $Url1: "https://picsum.photos/3000/3000";
+// $Url2: "https://picsum.photos/3000/3000?random";
 
-$Url2: "https://picsum.photos/3000/3000?random";
+$Url1: "";
+$Url2: "";
 
 @mixin HeroImage($url) {
     background-image: url($url);
@@ -16,44 +18,54 @@ $Url2: "https://picsum.photos/3000/3000?random";
     @include HeroImage($Url2);
 }
 
-.pagination-number {
-    font-size: 1.8rem;
+.LogoBox {
+    padding: 1rem;
+}
+
+.Title {
+    font-size: 4rem;
+    line-height: 1;
+    white-space: normal;
+    word-break: break-word;
     color: #FFF;
-    font-family: 'Oswald', sans-serif;
-    padding: 0 0.5rem;
+    z-index: 100;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-shadow: 1px 1px 4px black;
 }
 
-.pagination-separator {
-    display: none;
-
-    @media (min-width: 45em) {
-        display: block;
-    }
-
-    position: relative;
-    width: 40px;
-    height: 2px;
-    background: rgba(#FFFFFF, 0.25);
-    transition: all .3s ease;
-
-    &-loader {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #FFFFFF;
-        transform-origin: 0 0;
-        //transform: scaleX(0);
-        //transition: all 0.3s ease;
-    }
+.SubTitle {
+    font-size: 1rem;
+    line-height: 1.1rem;
+    max-width: 50%;
+    white-space: normal;
+    word-break: break-word;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-shadow: 1px 1px 4px black;
 }
+
+.Text {
+    line-height: 1.3;
+    font-size: 1rem;
+    max-width: 600px;
+    white-space: normal;
+    word-break: break-word;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: normal;
+    text-shadow: 1px 1px 4px black;
+}
+
+// Swiper
 
 .swiper {
+    width: 100%;
+    height: 100%;
+
     &-pagination {
         position: absolute;
-        bottom: 5rem;
-        left: 0;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -61,6 +73,9 @@ $Url2: "https://picsum.photos/3000/3000?random";
         align-items: center;
         transition: .3s opacity;
         z-index: 10;
+        bottom: 63% !important;
+        left: -200px !important;
+        text-shadow: 1px 1px 4px black;
 
         &-item {
             display: flex;
@@ -91,5 +106,50 @@ $Url2: "https://picsum.photos/3000/3000?random";
                 }
             }
         }
+    }
+
+    &-slide {
+        background-position: center;
+        background-size: cover;
+    }
+
+}
+
+.swiper-button-next::after {
+    text-shadow: 1px 1px 4px black;
+}
+
+.swiper-button-prev::after {
+    text-shadow: 1px 1px 4px black;
+}
+
+.pagination-number {
+    font-size: 1.8rem;
+    color: #FFF;
+    font-family: 'Oswald', sans-serif;
+    padding: 0 0.5rem;
+}
+
+.pagination-separator {
+    display: none;
+
+    @media (min-width: 45em) {
+        display: block;
+    }
+
+    position: relative;
+    width: 40px;
+    height: 2px;
+    background: rgba(#FFFFFF, 0.25);
+    transition: all .3s ease;
+
+    &-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #FFFFFF;
+        transform-origin: 0 0;
     }
 }
