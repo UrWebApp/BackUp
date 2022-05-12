@@ -36,8 +36,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
 
 .TextBox {
     margin-top:20rem;
-    max-width: 930px;
-    justify-content: center;
+    
 }
 
 .Title {
@@ -134,7 +133,9 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
 .swiper-button-next::after {
     text-shadow: 1px 1px 4px black;
 }
-
+.swiper-button-next,.swiper-button-prev{
+    z-index: 10000;
+}
 .swiper-button-prev::after {
     text-shadow: 1px 1px 4px black;
 }
