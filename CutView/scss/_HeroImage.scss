@@ -1,8 +1,9 @@
-// $Url1: "https://picsum.photos/3000/3000";
-// $Url2: "https://picsum.photos/3000/3000?random";
-
-$Url1: "";
-$Url2: "";
+$Url1: "https://picsum.photos/3000/3000";
+$Url2: "https://picsum.photos/3000/3000?random";
+$Url3: "https://picsum.photos/3000/3000?random";
+$Url4: "https://picsum.photos/3000/3000?random";
+$Url5: "https://picsum.photos/3000/3000?random";
+$Url6: "https://picsum.photos/3000/3000?random";
 
 @mixin HeroImage($url) {
     background-image: url($url);
@@ -10,21 +11,36 @@ $Url2: "";
     background-repeat: no-repeat;
 }
 
-.HeroImageOne {
-    @include HeroImage($Url1);
+.HeroImage {
+    &1 {
+        @include HeroImage($Url1);
+    }
+    &2 {
+        @include HeroImage($Url2);
+    }
+    &3 {
+        @include HeroImage($Url3);
+    }
+    &4 {
+        @include HeroImage($Url4);
+    }
+    &5 {
+        @include HeroImage($Url5);
+    }
+    &6 {
+        @include HeroImage($Url6);
+    }
 }
 
-.HeroImageTwo {
-    @include HeroImage($Url2);
-}
 
-.LogoBox {
-    padding: 1rem;
+
+.TextBox {
+    max-width: 930px;
 }
 
 .Title {
     font-size: 4rem;
-    line-height: 1;
+    line-height: 1.3;
     white-space: normal;
     word-break: break-word;
     color: #FFF;
@@ -47,9 +63,9 @@ $Url2: "";
 }
 
 .Text {
-    line-height: 1.3;
+    line-height: 1.7;
     font-size: 1rem;
-    max-width: 600px;
+    max-width: 1000px;
     white-space: normal;
     word-break: break-word;
     color: #FFF;
@@ -73,8 +89,6 @@ $Url2: "";
         align-items: center;
         transition: .3s opacity;
         z-index: 10;
-        bottom: 63% !important;
-        left: -200px !important;
         text-shadow: 1px 1px 4px black;
 
         &-item {
@@ -142,7 +156,7 @@ $Url2: "";
     height: 2px;
     background: rgba(#FFFFFF, 0.25);
     transition: all .3s ease;
-
+    bottom: 37rem;
     &-loader {
         position: absolute;
         top: 0;
@@ -151,5 +165,31 @@ $Url2: "";
         height: 100%;
         background: #FFFFFF;
         transform-origin: 0 0;
+    }
+}
+
+
+
+.intro-campaign-cta {
+    background-color: transparent;
+    border-color: white;
+    margin-top: 38px;
+    cursor: pointer;
+}
+
+.button-cta {
+    border-radius: 50px;
+    display: inline-block;
+    border: 2px solid white;
+    transition: 0.3s background-color ease-in-out;
+    padding: 15px;
+    color: white;
+    text-shadow: 1px 1px 4px black;
+    box-shadow: 1px 1px 1px black;
+    &:hover
+    {
+        background-color: white;
+        color: black;
+        text-shadow:none;
     }
 }
