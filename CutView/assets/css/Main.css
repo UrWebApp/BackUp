@@ -41,36 +41,37 @@ header {
 }
 
 .HeroImage2 {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("https://picsum.photos/3000/3000?random&t=1");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage3 {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("https://picsum.photos/3000/3000?random&t=2");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage4 {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("https://picsum.photos/3000/3000?random&t=3");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage5 {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("https://picsum.photos/3000/3000?random&t=4");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage6 {
-  background-image: url("https://picsum.photos/3000/3000?random");
+  background-image: url("https://picsum.photos/3000/3000?random&t=5");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .TextBox {
+  margin-top: 20rem;
   max-width: 930px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -136,7 +137,7 @@ header {
   transition: .3s opacity;
   z-index: 10;
   text-shadow: 1px 1px 4px black;
-  bottom: 40rem !important;
+  bottom: 28rem !important;
 }
 
 .swiper-pagination-item {
@@ -182,7 +183,7 @@ header {
 }
 
 .pagination-number {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: #FFF;
   font-family: 'Oswald', sans-serif;
   padding: 0 0.5rem;
@@ -192,11 +193,12 @@ header {
   display: none;
   position: relative;
   width: 40px;
-  height: 2px;
+  height: 1px;
   background: rgba(255, 255, 255, 0.25);
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
-  text-shadow: 1px 1px 4px black;
+  -webkit-box-shadow: 1px 1px 4px black;
+          box-shadow: 1px 1px 4px black;
 }
 
 @media (min-width: 45em) {
@@ -219,7 +221,6 @@ header {
 .intro-campaign-cta {
   background-color: transparent;
   border-color: white;
-  margin-top: 38px;
   cursor: pointer;
 }
 

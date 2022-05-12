@@ -1,9 +1,9 @@
 $Url1: "https://picsum.photos/3000/3000";
-$Url2: "https://picsum.photos/3000/3000?random";
-$Url3: "https://picsum.photos/3000/3000?random";
-$Url4: "https://picsum.photos/3000/3000?random";
-$Url5: "https://picsum.photos/3000/3000?random";
-$Url6: "https://picsum.photos/3000/3000?random";
+$Url2: 'https://picsum.photos/3000/3000?random&t=1';
+$Url3: 'https://picsum.photos/3000/3000?random&t=2';
+$Url4: 'https://picsum.photos/3000/3000?random&t=3';
+$Url5: 'https://picsum.photos/3000/3000?random&t=4';
+$Url6: 'https://picsum.photos/3000/3000?random&t=5';
 
 @mixin HeroImage($url) {
     background-image: url($url);
@@ -35,6 +35,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
 
 
 .TextBox {
+    margin-top:20rem;
     max-width: 930px;
     justify-content: center;
 }
@@ -91,7 +92,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
         transition: .3s opacity;
         z-index: 10;
         text-shadow: 1px 1px 4px black;
-        bottom: 40rem !important;
+        bottom: 28rem !important;
         &-item {
             display: flex;
             align-items: center;
@@ -139,7 +140,7 @@ $Url6: "https://picsum.photos/3000/3000?random";
 }
 
 .pagination-number {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     color: #FFF;
     font-family: 'Oswald', sans-serif;
     padding: 0 0.5rem;
@@ -154,10 +155,10 @@ $Url6: "https://picsum.photos/3000/3000?random";
 
     position: relative;
     width: 40px;
-    height: 2px;
+    height: 1px;
     background: rgba(#FFFFFF, 0.25);
     transition: all .3s ease;
-    text-shadow: 1px 1px 4px black;
+    box-shadow: 1px 1px 4px black;
     &-loader {
         position: absolute;
         top: 0;
@@ -174,7 +175,6 @@ $Url6: "https://picsum.photos/3000/3000?random";
 .intro-campaign-cta {
     background-color: transparent;
     border-color: white;
-    margin-top: 38px;
     cursor: pointer;
 }
 
