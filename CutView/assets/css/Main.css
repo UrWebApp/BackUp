@@ -25,12 +25,27 @@ header {
 }
 
 .nav-link {
-  color: #acacac;
+  color: white;
+}
+
+.nav-link-word {
+  color: white;
+  margin: 0 2.5rem;
+}
+
+.nav-link-word:hover {
+  color: white !important;
+  text-shadow: none;
 }
 
 .nav-link:hover {
   color: white !important;
   text-shadow: none;
+}
+
+.shadow {
+  -webkit-box-shadow: 1px 1px 1px black;
+          box-shadow: 1px 1px 1px black;
 }
 
 .HeroImage1 {
@@ -285,6 +300,30 @@ header {
     -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
   }
+}
+
+.CustomScrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.CustomScrollbar::-webkit-scrollbar-button {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.CustomScrollbar::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+.CustomScrollbar::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid slategrey;
+}
+
+.CustomScrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: transparent;
+          box-shadow: transparent;
 }
 
 html,

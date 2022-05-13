@@ -11,7 +11,8 @@ header {
 
 .LogoBox {
     padding: 1rem;
-    a{
+
+    a {
         text-decoration: none;
     }
 }
@@ -22,12 +23,27 @@ header {
     text-shadow: 1px 1px 4px black;
 }
 
-.nav-link{
-    color: rgb(172, 172, 172);
-    // text-shadow: 1px 1px 4px black;
+.nav-link {
+
+    color: white;
+    &-word {
+        color: white;
+        margin: 0 2.5rem;
+
+        &:hover {
+            color: white !important;
+            text-shadow: none;
+        }
+    }
+
+    &:hover {
+        color: white !important;
+        text-shadow: none;
+    }
 }
 
-.nav-link:hover{
-    color: white !important;
-    text-shadow: none;
+// https://stackoverflow.com/questions/38201831/add-a-shadow-to-the-bottom-of-a-header-when-scrolled
+
+.shadow {
+    box-shadow: 1px 1px 1px black;
 }

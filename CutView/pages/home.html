@@ -29,9 +29,10 @@
   <!-- Javascript Import End -->
 </head>
 
-<body>
+<body class="CustomScrollbar">
+
   <div class="container-fluid p-0 position-relative vh-100">
-    <header class="container-fluid p-0 mt-0">
+    <header id="Menu" class="container-fluid p-0 mt-0">
       <div class="marquee-container">
         <div class="marquee paused"></div>
       </div>
@@ -52,16 +53,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">專案</a>
+                  <a class="nav-link-word active" aria-current="page" href="#">專案</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">功能</a>
+                  <a class="nav-link-word" href="#">功能</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">流程</a>
+                  <a class="nav-link-word" href="#">流程</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">文章</a>
+                  <a class="nav-link-word" href="#">文章</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -199,15 +200,36 @@
           </div>
         </div>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <!-- <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div> -->
       <div class="swiper-pagination"></div>
       <div class="swiper-scrollbar"></div>
     </div>
   </div>
+
   <div class="container-fluid">
-    <div style="height:600px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quidem vitae ex dicta natus nisi animi excepturi eveniet earum aperiam! Illum sequi voluptatum ut nostrum excepturi, voluptates quo expedita alias!</div>
+    <div style="height:600px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quidem vitae ex dicta
+      natus nisi animi excepturi eveniet earum aperiam! Illum sequi voluptatum ut nostrum excepturi, voluptates quo
+      expedita alias!</div>
   </div>
+
+  <div class="container-fluid p-0 position-relative" style="background-color:black;color:white;height:60vh;">
+    <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quidem vitae ex dicta natus nisi animi
+      excepturi eveniet earum aperiam! Illum sequi voluptatum ut nostrum excepturi, voluptates quo expedita alias!</div>
+  </div>
+
+  <script>
+    $(window).scroll(function () {
+      var scroll = $(window).scrollTop();
+      if (scroll > 100) {
+        $("#Menu").addClass("shadow");
+      }
+      else {
+        $("#Menu").removeClass("shadow");
+      }
+    });
+  </script>
+
 </body>
 
 </html>
