@@ -23,7 +23,7 @@ header {
 }
 
 .nav-link {
-  color: #acacac;
+  color: rgb(172, 172, 172);
 }
 
 .nav-link:hover {
@@ -198,8 +198,7 @@ header {
   padding: 15px;
   color: white;
   text-shadow: 1px 1px 4px black;
-  -webkit-box-shadow: 1px 1px 1px black;
-          box-shadow: 1px 1px 1px black;
+  box-shadow: 1px 1px 1px black;
   background-color: rgba(0, 0, 0, 0.2);
 }
 .button-cta:hover {
