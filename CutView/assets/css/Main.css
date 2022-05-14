@@ -296,6 +296,10 @@ header {
   height: 50vh;
 }
 
+.ContentH2 {
+  font-size: 100px !important;
+}
+
 html,
 body {
   font-family: CustomSansSerif;
