@@ -4,6 +4,8 @@
 }
 
 header {
+    transition: all 1s;
+    transition-timing-function: ease-in-out;
     z-index: 10000000;
     position: fixed;
     margin: 5px 10px;
@@ -44,6 +46,12 @@ header {
 
 // https://stackoverflow.com/questions/38201831/add-a-shadow-to-the-bottom-of-a-header-when-scrolled
 
-.shadow {
+.NavActive {
+    transition: all 1.5s;
+    transition-timing-function: ease-in-out;
+    background-color: white;
     box-shadow: 1px 1px 1px black;
+}
+.LinkWordActive {
+    color: #000;
 }

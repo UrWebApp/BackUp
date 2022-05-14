@@ -34,7 +34,7 @@
   <div class="container-fluid p-0 position-relative vh-100">
     <header id="Menu" class="container-fluid p-0 mt-0">
       <div class="marquee-container">
-        <div class="marquee paused"></div>
+        <div class="marquee paused">Stand With UKRAINE!</div>
       </div>
       <div class="container d-flex justify-content-between">
         <div class="LogoBox d-flex">
@@ -207,11 +207,10 @@
     </div>
   </div>
 
-  <div class="container-fluid">
-    <div style="height:600px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quidem vitae ex dicta
-      natus nisi animi excepturi eveniet earum aperiam! Illum sequi voluptatum ut nostrum excepturi, voluptates quo
-      expedita alias!</div>
-  </div>
+  <section class="container-fluid ContentSection bg-primary p-0">
+    <div class="container-fluid TitleBox"></div>
+    <div class="container"></div>
+  </section>
 
   <div class="container-fluid p-0 position-relative" style="background-color:black;color:white;height:60vh;">
     <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quidem vitae ex dicta natus nisi animi
@@ -221,11 +220,13 @@
   <script>
     $(window).scroll(function () {
       var scroll = $(window).scrollTop();
-      if (scroll > 100) {
-        $("#Menu").addClass("shadow");
+      if (scroll > 250) {
+        $("#Menu").addClass("NavActive");
+        $(".nav-link-word").delay(1000).addClass("LinkWordActive");
       }
       else {
-        $("#Menu").removeClass("shadow");
+        $("#Menu").removeClass("NavActive");
+        $(".nav-link-word").delay(1000).removeClass("LinkWordActive");
       }
     });
   </script>
