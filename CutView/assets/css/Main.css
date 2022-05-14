@@ -300,6 +300,10 @@ header {
   font-size: 100px !important;
 }
 
+.ContentTextBox p {
+  max-width: 500px;
+}
+
 html,
 body {
   font-family: CustomSansSerif;
