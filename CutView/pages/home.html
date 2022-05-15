@@ -207,7 +207,7 @@
     </div>
   </div>
 
-  <section class="container-fluid ContentSection bg-primary p-0">
+  <section class="container-fluid ContentSection p-0">
     <div class="container-fluid TitleBox row m-0">
       <div class="col-2"></div>
       <div class="ContentTextBox col-6 d-flex">
@@ -217,7 +217,32 @@
       </div>
       <div><img src="../assets/Img/device.svg"></div>
     </div>
-    <div class="container"></div>
+    <div class="container card-group">
+      <div class="card">
+        <img src="https://picsum.photos/3000/3000?random&t=9" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/3000/3000?random&t=8" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/3000/3000?random&t=7" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <div class="container-fluid p-0 position-relative" style="background-color:black;color:white;height:60vh;">
@@ -237,113 +262,6 @@
         $(".nav-link-word").delay(1000).removeClass("LinkWordActive");
       }
     });
-  </script>
-  <script>
-    TweenMax.set("#mac", {
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-TweenMax.set("#ipad", {
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-TweenMax.set("#phone", {
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-TweenMax.set("#stuff-on-mac", {
-	autoAlpha: 0, // opacity and visibility are 0
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-TweenMax.set("#stuff-on-ipad", {
-	autoAlpha: 0, // opacity and visibility are 0
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-TweenMax.set("#stuff-on-iphone", {
-	autoAlpha: 0, // opacity and visibility are 0
-	transformOrigin: "bottom 0%",
-	scale: 0
-});
-
-const appear = (item) => {
-	const tl = new TimelineMax();
-	tl.to(item, 0.5, {
-		scale: 1,
-		autoAlpha: 1,
-		ease: Elastic.easeOut.config(1, 0.75)
-	});
-	return tl;
-};
-
-const lines = (item) => {
-	const tl = new TimelineMax()
-	tl.staggerTo(item, 2, {
-			autoAlpha: 0,
-			yoyo: true,
-			repeat: -1,
-			ease: Power0.easeNone,
-			stagger: {
-				amount: 1.5
-			}
-		});
-	
-	return tl;
-};
-
-const bars = (item) => {
-	const tl = new TimelineMax()
-	tl.staggerTo(item, 4, {
-			scaleY: 0,
-			transformOrigin: "bottom 0%",
-			yoyo: true,
-			repeat: -1,
-			ease: Power0.easeNone,
-			stagger: {
-				amount: 1.5
-			}
-		});
-	
-	return tl;
-}
-
-const device = (item) => {
-	const tl = new TimelineMax();
-	tl.to(item, 2, {
-		transformStyle: 'preserve-3d',
-		force3D: true,
-		y: -10,
-		z: -10,
-		ease: Power0.easeNone,
-		yoyo: true,
-		repeat: -1
-	});
-	
-	return tl;
-}
-
-const master = new TimelineMax();
-// device.timeScale(.5);
-
-master.add(appear('#mac'))
-	.add(appear('#phone'))
-	.add(appear('#ipad'))
-	.add(appear('#stuff-on-mac'))
-	.add(appear('#stuff-on-ipad'))
-	.add(appear('#stuff-on-iphone'))
-	.addLabel('startStaggering')
-	.add(lines('.line'))
-	.add(lines('.line2'), 'startStaggering')
-	.add(bars('.shade'), 'startStaggering')
-	.add(bars('.bar'), 'startStaggering')
-	.add(device('.device'), 'startStaggering')
-	.add(device('.device2'), 'startStaggering')
   </script>
 </body>
 
