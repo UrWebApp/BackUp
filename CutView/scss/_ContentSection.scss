@@ -2,16 +2,31 @@
     height: 100vh;
 }
 .TitleBox{
-    padding: 1rem 0;
-    background-color: #F7C242;
+    background-color: #fFC017;
     height:50vh;
 }
 
 .ContentH2{
+    font-weight: 700;
     font-size: 100px!important;
 }
 .ContentTextBox{
+    justify-content: center;
+    flex-direction: column;
     p{
+        margin-left: 10px;
         max-width: 500px;
+    }
+    a{
+        letter-spacing: 5px;
+        text-align: center;
+        border-radius: 99em;
+        width: 210px;
+        padding: 7px 20px ;
+        color: white;
+        background-color: #191919;
+        border: 1px solid #191919;
+        margin-top: 10px;
+        margin-left: 20px;
     }
 }

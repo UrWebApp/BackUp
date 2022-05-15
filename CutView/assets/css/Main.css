@@ -28,12 +28,13 @@ header {
   color: white;
 }
 .nav-link-word {
+  transition: all 1.5s;
+  text-shadow: 2px 2px 1px black;
   color: white;
   margin: 0 2.5rem;
 }
 .nav-link-word:hover {
-  color: white !important;
-  text-shadow: none;
+  color: red;
 }
 .nav-link:hover {
   color: white !important;
@@ -44,10 +45,12 @@ header {
   transition: all 1.5s;
   transition-timing-function: ease-in-out;
   background-color: white;
-  box-shadow: 1px 1px 1px black;
+  box-shadow: 1px 1px 15px black;
 }
 
 .LinkWordActive {
+  transition: all 1.5s;
+  text-shadow: 2px 2px 1px white;
   color: #000;
 }
 
@@ -291,17 +294,34 @@ header {
 }
 
 .TitleBox {
-  padding: 1rem 0;
-  background-color: #F7C242;
+  background-color: #fFC017;
   height: 50vh;
 }
 
 .ContentH2 {
+  font-weight: 700;
   font-size: 100px !important;
 }
 
+.ContentTextBox {
+  justify-content: center;
+  flex-direction: column;
+}
 .ContentTextBox p {
+  margin-left: 10px;
   max-width: 500px;
+}
+.ContentTextBox a {
+  letter-spacing: 5px;
+  text-align: center;
+  border-radius: 99em;
+  width: 210px;
+  padding: 7px 20px;
+  color: white;
+  background-color: #191919;
+  border: 1px solid #191919;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 html,

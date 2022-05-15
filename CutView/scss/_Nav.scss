@@ -29,12 +29,12 @@ header {
 
     color: white;
     &-word {
+        transition: all 1.5s;
+        text-shadow: 2px 2px 1px black;
         color: white;
         margin: 0 2.5rem;
-
-        &:hover {
-            color: white !important;
-            text-shadow: none;
+        &:hover{
+            color: red;
         }
     }
 
@@ -50,8 +50,10 @@ header {
     transition: all 1.5s;
     transition-timing-function: ease-in-out;
     background-color: white;
-    box-shadow: 1px 1px 1px black;
+    box-shadow: 1px 1px 15px  black;
 }
 .LinkWordActive {
+    transition: all 1.5s;
+    text-shadow: 2px 2px 1px white;
     color: #000;
 }

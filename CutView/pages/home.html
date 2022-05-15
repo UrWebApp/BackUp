@@ -25,7 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script type="module" src="../assets/js/Main.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
   <!-- Javascript Import End -->
 </head>
 
@@ -53,7 +53,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link-word active" aria-current="page" href="#">專案</a>
+                  <a class="nav-link-word" aria-current="page" href="#">專案</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link-word" href="#">功能</a>
@@ -65,10 +65,10 @@
                   <a class="nav-link-word" href="#">文章</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass nav-link-word"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-paper-plane"></i></a>
+                  <a class="nav-link" href="#"><i class="fa-solid fa-paper-plane nav-link-word"></i></a>
                 </li>
               </ul>
             </div>
@@ -210,11 +210,12 @@
   <section class="container-fluid ContentSection bg-primary p-0">
     <div class="container-fluid TitleBox row m-0">
       <div class="col-2"></div>
-      <div class="ContentTextBox col-6">
+      <div class="ContentTextBox col-6 d-flex">
         <h2 class="ContentH2">數位轉型</h2>
         <p>更進一步的理解，則是透過數位化，將企業的管理、行銷、業務、客戶服務、人資、IT等各部門之間以及自己內部的流程通通數據化、統一化，讓不同單位之間可以更有效率地合作，各單位在自己的工作崗位上也提供更好的服務品質與用戶體驗</p>
         <a href="#">查看更多</a>
       </div>
+      <div><img src="../assets/Img/device.svg"></div>
     </div>
     <div class="container"></div>
   </section>
@@ -237,7 +238,113 @@
       }
     });
   </script>
+  <script>
+    TweenMax.set("#mac", {
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
 
+TweenMax.set("#ipad", {
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
+
+TweenMax.set("#phone", {
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
+
+TweenMax.set("#stuff-on-mac", {
+	autoAlpha: 0, // opacity and visibility are 0
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
+
+TweenMax.set("#stuff-on-ipad", {
+	autoAlpha: 0, // opacity and visibility are 0
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
+
+TweenMax.set("#stuff-on-iphone", {
+	autoAlpha: 0, // opacity and visibility are 0
+	transformOrigin: "bottom 0%",
+	scale: 0
+});
+
+const appear = (item) => {
+	const tl = new TimelineMax();
+	tl.to(item, 0.5, {
+		scale: 1,
+		autoAlpha: 1,
+		ease: Elastic.easeOut.config(1, 0.75)
+	});
+	return tl;
+};
+
+const lines = (item) => {
+	const tl = new TimelineMax()
+	tl.staggerTo(item, 2, {
+			autoAlpha: 0,
+			yoyo: true,
+			repeat: -1,
+			ease: Power0.easeNone,
+			stagger: {
+				amount: 1.5
+			}
+		});
+	
+	return tl;
+};
+
+const bars = (item) => {
+	const tl = new TimelineMax()
+	tl.staggerTo(item, 4, {
+			scaleY: 0,
+			transformOrigin: "bottom 0%",
+			yoyo: true,
+			repeat: -1,
+			ease: Power0.easeNone,
+			stagger: {
+				amount: 1.5
+			}
+		});
+	
+	return tl;
+}
+
+const device = (item) => {
+	const tl = new TimelineMax();
+	tl.to(item, 2, {
+		transformStyle: 'preserve-3d',
+		force3D: true,
+		y: -10,
+		z: -10,
+		ease: Power0.easeNone,
+		yoyo: true,
+		repeat: -1
+	});
+	
+	return tl;
+}
+
+const master = new TimelineMax();
+// device.timeScale(.5);
+
+master.add(appear('#mac'))
+	.add(appear('#phone'))
+	.add(appear('#ipad'))
+	.add(appear('#stuff-on-mac'))
+	.add(appear('#stuff-on-ipad'))
+	.add(appear('#stuff-on-iphone'))
+	.addLabel('startStaggering')
+	.add(lines('.line'))
+	.add(lines('.line2'), 'startStaggering')
+	.add(bars('.shade'), 'startStaggering')
+	.add(bars('.bar'), 'startStaggering')
+	.add(device('.device'), 'startStaggering')
+	.add(device('.device2'), 'startStaggering')
+  </script>
 </body>
 
 </html>
