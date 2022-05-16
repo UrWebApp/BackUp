@@ -67,37 +67,37 @@ header {
 }
 
 .HeroImage1 {
-  background-image: url("https://picsum.photos/3000/3000");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage2 {
-  background-image: url("https://picsum.photos/3000/3000?random&t=1");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage3 {
-  background-image: url("https://picsum.photos/3000/3000?random&t=2");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage4 {
-  background-image: url("https://picsum.photos/3000/3000?random&t=3");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage5 {
-  background-image: url("https://picsum.photos/3000/3000?random&t=4");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage6 {
-  background-image: url("https://picsum.photos/3000/3000?random&t=5");
+  background-image: url("../Img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }

@@ -1,9 +1,16 @@
-$Url1: "https://picsum.photos/3000/3000";
-$Url2: 'https://picsum.photos/3000/3000?random&t=1';
-$Url3: 'https://picsum.photos/3000/3000?random&t=2';
-$Url4: 'https://picsum.photos/3000/3000?random&t=3';
-$Url5: 'https://picsum.photos/3000/3000?random&t=4';
-$Url6: 'https://picsum.photos/3000/3000?random&t=5';
+// $Url1: "https://picsum.photos/3000/3000";
+// $Url2: 'https://picsum.photos/3000/3000?random&t=1';
+// $Url3: 'https://picsum.photos/3000/3000?random&t=2';
+// $Url4: 'https://picsum.photos/3000/3000?random&t=3';
+// $Url5: 'https://picsum.photos/3000/3000?random&t=4';
+// $Url6: 'https://picsum.photos/3000/3000?random&t=5';
+
+$Url1: '../Img/693-3000x3000.jpg';
+$Url2: "../Img/693-3000x3000.jpg";
+$Url3: "../Img/693-3000x3000.jpg";
+$Url4: "../Img/693-3000x3000.jpg";
+$Url5: "../Img/693-3000x3000.jpg";
+$Url6: "../Img/693-3000x3000.jpg";
 
 @mixin HeroImage($url) {
     background-image: url($url);
