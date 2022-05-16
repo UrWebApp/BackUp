@@ -34,7 +34,7 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
 
 .TextBox {
     margin-top:20rem;
-    
+    padding: 0 2rem;
 }
 
 .Title {
@@ -179,13 +179,12 @@ $Url6: 'https://picsum.photos/3000/3000?random&t=5';
 .button-cta {
     border-radius: 50px;
     display: inline-block;
-    border: 2px solid white;
+    border: 1px solid white;
     transition: 0.3s background-color ease-in-out;
     padding: 15px;
     color: white;
     text-shadow: 1px 1px 4px black;
-    box-shadow: 1px 1px 1px black;
-    background-color: rgba(0, 0, 0, 0.2) ;
+    // box-shadow: 1px 1px 1px black;
     &:hover
     {
         background-color: white;
