@@ -17,7 +17,13 @@
     crossorigin='anonymous' />
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="../assets/css/Main.css" />
-
+  <style>
+    .UKRAINE {
+      border-radius: 100%;
+      width: 25px;
+      margin: 0 0.5rem;
+    }
+  </style>
   <!-- Style Import End -->
 
   <!-- Javascript Import Start -->
@@ -32,55 +38,57 @@
 
   <div class="container-fluid p-0 position-relative vh-100">
     <header id="Menu" class="container-fluid p-0 mt-0">
-      <div class="marquee-container">
-        <div class="marquee paused">Stand With UKRAINE!</div>
+
+      <div class="col-12 marquee-container">
+        <div class="marquee paused">Stand With <img class="UKRAINE"
+            src="https://www.emojiall.com/en/header-svg/%F0%9F%87%BA%F0%9F%87%A6.svg"> UKRAINE !</div>
       </div>
+
       <div class="container-fluid row">
         <div class="col-2"></div>
-
-        <div class="LogoBox d-flex">
-          <a href="#" class="d-flex align-items-center"><img src="../assets/Img/WebWangLogFinal.svg"
-              class="img-fluid NavLogo">
-            <h2 class="BrandName">WebWang</h2>
-          </a>
-        </div>
-
-        <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-              aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link-word" aria-current="page" href="#">專案</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link-word" href="#">功能</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link-word" href="#">流程</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link-word" href="#">文章</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass nav-link-word"></i></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa-solid fa-paper-plane nav-link-word"></i></a>
-                </li>
-              </ul>
-            </div>
-
+        <div class="col-8 row" style="justify-content: space-between">
+          <div class="LogoBox d-flex">
+            <a href="#" class="d-flex align-items-center"><img src="../assets/Img/WebWangLogFinal.svg"
+                class="img-fluid NavLogo">
+              <h2 class="BrandName">WebWang</h2>
+            </a>
           </div>
-        </nav>
+          <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item-word">
+                    <a class="nav-link" aria-current="page" href="#">專案</a>
+                  </li>
+                  <li class="nav-item-word">
+                    <a class="nav-link" href="#">功能</a>
+                  </li>
+                  <li class="nav-item-word">
+                    <a class="nav-link" href="#">流程</a>
+                  </li>
+                  <li class="nav-item-word">
+                    <a class="nav-link" href="#">文章</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass nav-link-word"></i></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-paper-plane nav-link-word"></i></a>
+                  </li>
+                </ul>
+              </div>
 
+            </div>
+          </nav>
+        </div>
+        <div class="col-2"></div>
       </div>
+
     </header>
     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -183,66 +191,74 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid card-group ProjectBox">
+    <div class="container-fluid row">
       <div class="col-2"></div>
-      <div class="flip">
-        <div class="front" style="background-image: url(https://picsum.photos/3000/3000?random&t=6)">
-          <h1 class="text-shadow">白工程行</h1>
-          <p class="CardFocus">精選案例</p>
+      <div class="col-8 card-group ProjectBox">
+        <div class="flip">
+          <div class="front" style="background-image: url(https://picsum.photos/3000/3000?random&t=6)">
+            <h1 class="text-shadow">白工程行</h1>
+            <p class="CardFocus">精選案例</p>
+          </div>
+          <div class="back">
+            <h2>Angular</h2>
+            <p>Good tools make application development quicker and easier to maintain than if you did everything by
+              hand..
+            </p>
+          </div>
         </div>
-        <div class="back">
-          <h2>Angular</h2>
-          <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..
-          </p>
+        <div class="flip">
+          <div class="front" style="background-image: url(https://picsum.photos/3000/3000?random&t=7)">
+            <h1 class="text-shadow">誠誠設計</h1>
+            <p class="CardFocus">精選案例</p>
+          </div>
+          <div class="back">
+            <h2>Angular</h2>
+            <p>Good tools make application development quicker and easier to maintain than if you did everything by
+              hand..
+            </p>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="front"
+            style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
+            <h1 class="text-shadow text-center">相龔<br>律師事務所</h1>
+            <p class="CardFocus">精選案例</p>
+          </div>
+          <div class="back">
+            <h2>Angular</h2>
+            <p>Good tools make application development quicker and easier to maintain than if you did everything by
+              hand..
+            </p>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="front"
+            style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
+            <h1 class="text-shadow text-center">相龔<br>律師事務所</h1>
+            <p class="CardFocus">精選案例</p>
+          </div>
+          <div class="back">
+            <h2>Angular</h2>
+            <p>Good tools make application development quicker and easier to maintain than if you did everything by
+              hand..
+            </p>
+          </div>
+        </div>
+        <div class="flip">
+          <div class="front"
+            style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
+            <h1 class="text-shadow text-center">更多<br>案例</h1>
+            <p class="CardFocus">精選案例</p>
+          </div>
+          <div class="back">
+            <h2>Angular</h2>
+            <p>Good tools make application development quicker and easier to maintain than if you did everything by
+              hand..
+            </p>
+          </div>
         </div>
       </div>
-      <div class="flip">
-        <div class="front" style="background-image: url(https://picsum.photos/3000/3000?random&t=7)">
-          <h1 class="text-shadow">誠誠設計</h1>
-          <p class="CardFocus">精選案例</p>
-        </div>
-        <div class="back">
-          <h2>Angular</h2>
-          <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..
-          </p>
-        </div>
-      </div>
-      <div class="flip">
-        <div class="front"
-          style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-          <h1 class="text-shadow text-center">相龔<br>律師事務所</h1>
-          <p class="CardFocus">精選案例</p>
-        </div>
-        <div class="back">
-          <h2>Angular</h2>
-          <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..
-          </p>
-        </div>
-      </div>
-      <div class="flip">
-        <div class="front"
-          style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-          <h1 class="text-shadow text-center">相龔<br>律師事務所</h1>
-          <p class="CardFocus">精選案例</p>
-        </div>
-        <div class="back">
-          <h2>Angular</h2>
-          <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..
-          </p>
-        </div>
-      </div>
-      <div class="flip">
-        <div class="front"
-          style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-          <h1 class="text-shadow text-center">更多<br>案例</h1>
-          <p class="CardFocus">精選案例</p>
-        </div>
-        <div class="back">
-          <h2>Angular</h2>
-          <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..
-          </p>
-        </div>
-      </div>
+      <div class="col-2"></div>
     </div>
   </section>
 

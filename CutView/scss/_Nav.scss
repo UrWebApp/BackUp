@@ -25,23 +25,15 @@ header {
     text-shadow: 1px 1px 4px black;
 }
 
-.nav-link {
-
+.nav-item-word {
+    transition: all 1.5s;
     color: white;
-    &-word {
-        transition: all 1.5s;
-        text-shadow: 2px 2px 1px black;
-        color: white;
-        margin: 0 2.5rem;
-        &:hover{
-            color: red;
-        }
-    }
+    margin: 0 2.5rem;
+}
 
-    &:hover {
-        color: white !important;
-        text-shadow: none;
-    }
+.nav-link {
+    text-shadow: 2px 2px 1px black;
+    color: white;
 }
 
 // https://stackoverflow.com/questions/38201831/add-a-shadow-to-the-bottom-of-a-header-when-scrolled
@@ -50,8 +42,9 @@ header {
     transition: all 1.5s;
     transition-timing-function: ease-in-out;
     background-color: white;
-    box-shadow: 1px 1px 15px  black;
+    box-shadow: 1px 1px 15px black;
 }
+
 .LinkWordActive {
     transition: all 1.5s;
     text-shadow: 2px 2px 1px white;
