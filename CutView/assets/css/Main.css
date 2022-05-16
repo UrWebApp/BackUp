@@ -12,7 +12,7 @@ header {
 }
 
 .LogoBox {
-  padding: 1rem;
+  padding: 0 2rem;
 }
 .LogoBox a {
   text-decoration: none;
@@ -326,7 +326,6 @@ header {
 
 .ProjectBox {
   margin-top: 50px;
-  justify-content: center;
   align-items: center;
 }
 
