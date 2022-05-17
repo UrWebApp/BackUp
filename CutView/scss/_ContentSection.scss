@@ -42,7 +42,7 @@
     >.back {
         display: block;
         transition-timing-function: cubic-bezier(.175, .885, .32, 1.275);
-        transition-duration: .5s;
+        transition-duration: 1.5s;
         transition-property: transform, opacity;
     }
     >.front {
