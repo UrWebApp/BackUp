@@ -1,3 +1,5 @@
+<!-- 看完這篇改寫 https://ithelp.ithome.com.tw/articles/10199699 -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,19 +62,40 @@
 
         // 瀏覽器生命週期包含基本應用可參考 https://zh.javascript.info/onload-ondomcontentloaded
         window.onload = function () {
+
+            // Scene 場景 供其他元素設置的空間。
+            // Camera 相機 在場景中建立觀察點，並確定觀察方向、角度。
+            // Object 物件 在場景中添加被觀察的物體，主要分為 網格、粒子 模型，每一種物件都具備 幾何體與材質。
+            // Geometry 幾何體 物體的形狀
+            // Material 材質 物體的外觀、皮膚
+            // Light 光源 在場景中用來照亮物體的光。
+            // Renderer 渲染器 將所要呈現的場景渲染到畫面上。
+
             // Global Variables
-            const mediaUrl = "https://res.cloudinary.com/datgjxu0v/video/upload/v1587918412/Nightmare_cn8yr2.mp3";
+            const mediaUrl = "88.mp3";
             const MAX_SOUND_VALUE = 256;
             const fftSize = 1024;
             const LINES = 128;
             var soundIsPlaying = false;
             let button = document.getElementById('startButton');
+            let Color = randomColor();
 
             // Create the Scene
-            var scene = new THREE.Scene();
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            var renderer = new THREE.WebGLRenderer();
+            // 參考文檔 https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+            var scene = new THREE.Scene(); // 場景用於放置 ( 物體、相機、燈光 )
+            var camera = // 透視視角 相機 ( 還有其他種 )
+                new THREE
+                    // PerspectiveCamera( fov : Number, aspect : Number, near : Number, far : Number )
+                    // fov - 相機平截頭體垂直視野。
+                    // aspect - 相機平截頭體縱橫比。
+                    // near - 平面附近的相機平截頭體。
+                    // far — 相機平截頭體遠平面。
+                    .PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
+            var renderer = new THREE.WebGLRenderer(); // 用於渲染場景
+            renderer.setClearColor(0xeeeeee, 1.0) // 預設背景顏色
+            renderer.shadowMap.enabled = true // 設定需渲染陰影效果
+            renderer.shadowMap.type = 2 // THREE.PCFSoftShadowMap
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
             camera.position.z = 50;
@@ -111,12 +134,18 @@
 
             function setupScene() {
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
-                var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+                var material = new THREE.MeshLambertMaterial(
+                    {
+                        color: Color,
+                        // wireframe: true,
+                        // map : new THREE.TextureLoader().load('88.jpg')
+                    }
+                );
                 var mesh = new THREE.Mesh(geometry, material);
                 var centerLeft = new THREE.Vector3(left, 0, 0);
                 var centerRight = new THREE.Vector3(right, 0, 0);
 
-                let lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+                let lineMaterial = new THREE.LineBasicMaterial({ color: Color });
                 var points = [];
                 points.push(new THREE.Vector3(-25, -20, 0));
                 points.push(new THREE.Vector3(-25, 0, 0));
@@ -143,6 +172,14 @@
                 scene.add(leftCubeGroup);
                 scene.add(rightCubeGroup);
                 scene.add(lineGroup);
+
+                // 設置環境光 AmbientLight
+                let ambientLight = new THREE.AmbientLight(0xeeff00);
+                scene.add(ambientLight);
+
+                let pointLight = new THREE.PointLight(0xffffff);
+                pointLight.position.set(10, 100, -10);
+                scene.add(pointLight);
             }
 
             function update() {
@@ -178,8 +215,6 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-
-
 
                 // Check to see if audio is playing
                 buttonCheck();
@@ -239,6 +274,15 @@
                 let average = sum / sampleSize;
 
                 return average / MAX_SOUND_VALUE;
+            }
+
+            function randomColor() {
+                var makingColorCode = '0123456789ABCDEF';
+                var finalCode = '#';
+                for (var counter = 0; counter < 6; counter++) {
+                    finalCode = finalCode + makingColorCode[Math.floor(Math.random() * 16)];
+                }
+                return finalCode;
             }
         }
     </script>
