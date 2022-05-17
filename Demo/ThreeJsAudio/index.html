@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        #container>button {
+            height: 25px;
+            background: transparent;
+            color: #ffffff;
+            outline: 1px solid #ffffff;
+            border: 0px;
+            cursor: pointer;
+        }
+
+        .enabled {
+            color: #ffffff;
+            outline: 1px solid #ffffff;
+        }
+
+        .disabled {
+            color: #000000;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <button class="enabled" id="startButton">Click to Play</button>
+    </div>
+
+    <!-- 很重要必須要 type = module 才可以 import 卡很久 -->
+    <script type="module">
+
+        import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js';
+        // import * as OrbitControls from 'https://threejsfundamentals.org/threejs/resources/threejs/r114/examples/jsm/controls/OrbitControls.js'; // 軌道拖曳器沒用到不知道作者引入幹嘛的
+
+        // 瀏覽器生命週期包含基本應用可參考 https://zh.javascript.info/onload-ondomcontentloaded
+        window.onload = function () {
+            // Global Variables
+            const mediaUrl = "https://res.cloudinary.com/datgjxu0v/video/upload/v1587918412/Nightmare_cn8yr2.mp3";
+            const MAX_SOUND_VALUE = 256;
+            const fftSize = 1024;
+            const LINES = 128;
+            var soundIsPlaying = false;
+            let button = document.getElementById('startButton');
+
+            // Create the Scene
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            var renderer = new THREE.WebGLRenderer();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            camera.position.z = 50;
+
+
+            // create an AudioListener and add it to the camera
+            var listener = new THREE.AudioListener();
+            camera.add(listener);
+
+            // create a global audio source
+            var sound = new THREE.Audio(listener);
+
+            // create an audo analysor for this sound
+            var analyser = new THREE.AudioAnalyser(sound, fftSize);
+            let dataLength = analyser.getFrequencyData().length // 512
+
+            // load a sound and set it as the Audio object's buffer
+            function playSound() {
+                var audioLoader = new THREE.AudioLoader();
+                audioLoader.load(mediaUrl, function (buffer) {
+                    sound.setBuffer(buffer);
+                    sound.setLoop(false);
+                    sound.setVolume(0.5);
+                    sound.play();
+                });
+            }
+
+            const nCubes = 32;
+            const radius = 20;
+            const left = -30;
+            const right = 30;
+            let leftCubeGroup = new THREE.Group();
+            let rightCubeGroup = new THREE.Group();
+            let lineGroup = new THREE.Group();
+            var lines = [];
+
+            function setupScene() {
+                var geometry = new THREE.BoxGeometry(1, 1, 1);
+                var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+                var mesh = new THREE.Mesh(geometry, material);
+                var centerLeft = new THREE.Vector3(left, 0, 0);
+                var centerRight = new THREE.Vector3(right, 0, 0);
+
+                let lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+                var points = [];
+                points.push(new THREE.Vector3(-25, -20, 0));
+                points.push(new THREE.Vector3(-25, 0, 0));
+
+                for (var i = 0; i < nCubes; i++) {
+                    var cube = mesh.clone();
+                    var angle = i * Math.PI / nCubes + Math.PI / 2;
+                    cube.position.set(Math.cos(angle) * radius + centerLeft.x, Math.sin(angle) * radius, 0);
+                    cube.lookAt(centerLeft);
+                    leftCubeGroup.add(cube);
+
+                    cube = mesh.clone();
+                    cube.position.set(-Math.cos(angle) * radius + centerRight.x, Math.sin(angle) * radius, 0);
+                    cube.lookAt(centerRight);
+                    rightCubeGroup.add(cube);
+
+                    let x = -25 + i * 50 / nCubes;
+                    points[0] = new THREE.Vector3(x, -20, 0);
+                    points[1] = new THREE.Vector3(x, -19, 0);
+                    var lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+                    var line = new THREE.Line(lineGeometry, lineMaterial);
+                    lineGroup.add(line);
+                }
+                scene.add(leftCubeGroup);
+                scene.add(rightCubeGroup);
+                scene.add(lineGroup);
+            }
+
+            function update() {
+
+                for (var i = 0; i < nCubes; i++) {
+                    var cube = leftCubeGroup.children[i];
+                    let angle = i * Math.PI / nCubes + Math.PI / 2;
+                    let freq = getSampleOfSoundData(i, nCubes, analyser.getFrequencyData());
+                    let z = freq * 15;
+                    cube.scale.set(1, 1, z);
+
+                    var center = new THREE.Vector3(left, 0, 0);
+                    var direction = cube.position.sub(center).normalize();
+                    var position = new THREE.Vector3(Math.cos(angle) * radius + center.x, Math.sin(angle) * radius, 0);
+                    var offset = position.add(direction.multiplyScalar(z / 2));
+                    cube.position.set(offset.x, offset.y, offset.z);
+
+                    cube = rightCubeGroup.children[i];
+                    cube.scale.set(1, 1, z);
+
+                    center = new THREE.Vector3(right, 0, 0);
+                    direction = cube.position.sub(center).normalize();
+                    position = new THREE.Vector3(-Math.cos(angle) * radius + center.x, Math.sin(angle) * radius, 0);
+                    offset = position.add(direction.multiplyScalar(z / 2));
+                    cube.position.set(offset.x, offset.y, offset.z);
+
+                    var line = lineGroup.children[i];
+                    var positions = line.geometry.attributes.position.array;
+                    positions[4] = -19 + z * 2;
+                    line.geometry.attributes.position.needsUpdate = true;
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+
+
+                // Check to see if audio is playing
+                buttonCheck();
+
+                update();
+
+                renderer.render(scene, camera);
+            };
+
+            setupScene();
+            animate();
+
+            // function needResize() {
+            //   const width = canvas.clientWidth, height = canvas.clientHeight;
+            //   if (canvas.width !== width || canvas.height !== height) return true;
+            //   else return false;
+            // }
+
+            // Button Methods
+            button.addEventListener('click', function () {
+
+                if (!soundIsPlaying) {
+                    playSound();
+                }
+            });
+
+            function buttonCheck() {
+
+                if (soundIsPlaying != sound.isPlaying) {
+                    console.log("Toggle Button state")
+                    //Toggle
+                    if (soundIsPlaying) { // Sound turned off
+                        soundIsPlaying = false
+                        // Show the button
+                        button.style.visibility = "visible";
+                    }
+                    else { // Sound turned on
+                        soundIsPlaying = true;
+                        button.style.visibility = "hidden";
+                    }
+                }
+            }
+
+            // Data Methods
+
+            //Returns the average of a small sample of the array. Index declares which sample you want, ideal for iteration.
+            function getSampleOfSoundData(index, noSampleSections, soundDataArray) {
+                let sampleSize = Math.floor((soundDataArray.length / 2) / noSampleSections);
+
+                let minBound = index * sampleSize;
+                let maxBound = (index + 1) * sampleSize;
+                let sum = 0;
+
+                for (let i = minBound; i < maxBound; i++) {
+                    sum += soundDataArray[i];
+                }
+                let average = sum / sampleSize;
+
+                return average / MAX_SOUND_VALUE;
+            }
+        }
+    </script>
+</body>
+
+</html>
