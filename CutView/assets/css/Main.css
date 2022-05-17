@@ -58,37 +58,37 @@ header {
 }
 
 .HeroImage1 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage2 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage3 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage4 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage5 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .HeroImage6 {
-  background-image: url("../Img/693-3000x3000.jpg");
+  background-image: url("../img/693-3000x3000.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -332,6 +332,16 @@ header {
           box-shadow: transparent;
 }
 
+.Block1ImgBox {
+  padding: 2rem;
+  width: 19rem;
+}
+
+.Block1ImgBox > img {
+  width: 100%;
+  height: 100%;
+}
+
 .ContentSection {
   height: 110vh;
 }
@@ -494,16 +504,6 @@ header {
 
 .text-shadow {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.04), 2px 2px rgba(0, 0, 0, 0.04), 3px 3px rgba(0, 0, 0, 0.04), 4px 4px rgba(0, 0, 0, 0.04), 0.125rem 0.125rem rgba(0, 0, 0, 0.04), 6px 6px rgba(0, 0, 0, 0.04), 7px 7px rgba(0, 0, 0, 0.04), 8px 8px rgba(0, 0, 0, 0.04), 9px 9px rgba(0, 0, 0, 0.04), 0.3125rem 0.3125rem rgba(0, 0, 0, 0.04), 11px 11px rgba(0, 0, 0, 0.04), 12px 12px rgba(0, 0, 0, 0.04), 13px 13px rgba(0, 0, 0, 0.04), 14px 14px rgba(0, 0, 0, 0.04), 0.625rem 0.625rem rgba(0, 0, 0, 0.04), 16px 16px rgba(0, 0, 0, 0.04), 17px 17px rgba(0, 0, 0, 0.04), 18px 18px rgba(0, 0, 0, 0.04), 19px 19px rgba(0, 0, 0, 0.04), 1.25rem 1.25rem rgba(0, 0, 0, 0.04);
-}
-
-.Block1ImgBox {
-  padding: 2rem;
-  width: 19rem;
-}
-
-.Block1ImgBox > img {
-  width: 100%;
-  height: 100%;
 }
 
 html,
