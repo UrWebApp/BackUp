@@ -13,52 +13,19 @@
             margin: 0px;
             overflow: hidden;
         }
-
-        #container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.5;
-            background-color: #000000;
-            color: #ffffff;
-        }
-
-        #container>button {
-            height: 25px;
-            background: transparent;
-            color: #ffffff;
-            outline: 1px solid #ffffff;
-            border: 0px;
-            cursor: pointer;
-        }
-
-        .enabled {
-            color: #ffffff;
-            outline: 1px solid #ffffff;
-        }
-
-        .disabled {
-            color: #000000;
-            outline: none;
-        }
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <button class="enabled" id="startButton">Click to Play</button>
+    <div style="display:flex;flex-direction: column;width: 100px;position: absolute;">
+        <button class="enabled" id="startButton">開始表演</button>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
     <!-- 很重要必須要 type = module 才可以 import 卡很久 -->
     <script type="module">
-
         import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js';
-        // import * as OrbitControls from 'https://threejsfundamentals.org/threejs/resources/threejs/r114/examples/jsm/controls/OrbitControls.js'; // 軌道拖曳器沒用到不知道作者引入幹嘛的
+        import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r114/examples/jsm/controls/OrbitControls.js'; // 軌道拖曳器沒用到不知道作者引入幹嘛的
 
         // 瀏覽器生命週期包含基本應用可參考 https://zh.javascript.info/onload-ondomcontentloaded
         window.onload = function () {
@@ -74,11 +41,10 @@
             // Global Variables
             const mediaUrl = "88.mp3";
             const MAX_SOUND_VALUE = 256;
-            const fftSize = 1024;
             const LINES = 128;
-            var soundIsPlaying = false;
             let button = document.getElementById('startButton');
             let Color = randomColor();
+            let cameraControl;
 
             // Create the Scene
             // 參考文檔 https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
@@ -90,43 +56,50 @@
                     // aspect - 相機平截頭體縱橫比。
                     // near - 平面附近的相機平截頭體。
                     // far — 相機平截頭體遠平面。
-                    .PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                    .PerspectiveCamera(
+                        90,
+                        window.innerWidth / window.innerHeight,
+                        0.1,
+                        1000
+                    );
 
             var renderer = new THREE.WebGLRenderer(); // 用於渲染場景
-            renderer.setClearColor(0xeeeeee, 1.0) // 預設背景顏色
+            renderer.setClearColor(new THREE.Color('rgb(0, 0, 0)')) // 預設背景顏色
             renderer.shadowMap.enabled = true // 設定需渲染陰影效果
             renderer.shadowMap.type = 2 // THREE.PCFSoftShadowMap
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
             camera.position.z = 50;
 
-
-            // create an AudioListener and add it to the camera
+            // 創建一個 AudioListener 並將其添加到相機
             var listener = new THREE.AudioListener();
             camera.add(listener);
 
-            // create a global audio source
+            // 創建全局音頻源
             var sound = new THREE.Audio(listener);
 
-            // create an audo analysor for this sound
+            // 為這個聲音創建一個音頻分析器
+            const fftSize = 1024
             var analyser = new THREE.AudioAnalyser(sound, fftSize);
             let dataLength = analyser.getFrequencyData().length // 512
 
-            // load a sound and set it as the Audio object's buffer
+            // 加載聲音並將其設置為 Audio 對象的緩衝區
             function playSound() {
                 var audioLoader = new THREE.AudioLoader();
                 audioLoader.load(mediaUrl, function (buffer) {
                     sound.setBuffer(buffer);
                     sound.setLoop(false);
                     sound.setVolume(0.5);
-                    sound.play();
+                    if (sound.play() == undefined) {
+                        sound.stop();
+                    }
                 });
             }
 
             const nCubes = 32;
             const radius = 20;
-            const left = -30;
-            const right = 30;
+            const left = 10;
+            const right = -10;
             let leftCubeGroup = new THREE.Group();
             let rightCubeGroup = new THREE.Group();
             let lineGroup = new THREE.Group();
@@ -134,7 +107,7 @@
 
             function setupScene() {
                 var geometry = new THREE.BoxGeometry(1, 1, 1);
-                var material = new THREE.MeshLambertMaterial(
+                var material = new THREE.MeshPhongMaterial(
                     {
                         color: Color,
                         // wireframe: true,
@@ -145,7 +118,11 @@
                 var centerLeft = new THREE.Vector3(left, 0, 0);
                 var centerRight = new THREE.Vector3(right, 0, 0);
 
-                let lineMaterial = new THREE.LineBasicMaterial({ color: Color });
+                let lineMaterial = new THREE.LineBasicMaterial(
+                    {
+                        color: new THREE.Color('rgb(63, 197, 212)')
+                    }
+                );
                 var points = [];
                 points.push(new THREE.Vector3(-25, -20, 0));
                 points.push(new THREE.Vector3(-25, 0, 0));
@@ -173,16 +150,98 @@
                 scene.add(rightCubeGroup);
                 scene.add(lineGroup);
 
-                // 設置環境光 AmbientLight
-                let ambientLight = new THREE.AmbientLight(0xeeff00);
-                scene.add(ambientLight);
+                // 建立 OrbitControls
+                cameraControl = new OrbitControls(camera, renderer.domElement)
+                cameraControl.enableDamping = true // 啟用阻尼效果
+                cameraControl.dampingFactor = 0.25 // 阻尼系數
+                // cameraControl.autoRotate = true // 啟用自動旋轉
 
-                let pointLight = new THREE.PointLight(0xffffff);
-                pointLight.position.set(10, 100, -10);
-                scene.add(pointLight);
+                // 建立物體
+                const geometry2 = new THREE.BoxGeometry(15, 15, 15) // 幾何體
+                const material2 = new THREE.MeshPhongMaterial({
+                    color: Color
+                }) // 材質
+                cube2 = new THREE.Mesh(geometry2, material2) // 建立網格物件
+                cube2.position.set(0, 10, 0)
+                scene.add(cube2)
+
+                // 簡單的地板
+                const planeGeometry = new THREE.CircleGeometry(20, 20)
+                const planeMaterial = new THREE.MeshLambertMaterial({ color: new THREE.Color('rgb(63, 197, 212)') })
+                let plane = new THREE.Mesh(planeGeometry, planeMaterial)
+                plane.rotation.x = -0.5 * Math.PI // 使平面與 y 軸垂直，並讓正面朝上
+                plane.position.set(0, -20, 0)
+                scene.add(plane)
+
+                let datGUIControls = new (function () {
+                    this.AmbientLight = true
+                    this.PointLight = true
+                    this.Spotlight = true
+                    this.DirectionalLight = true
+                })()
+
+                // 設置環境光 AmbientLight
+                let ambientLight = new THREE.AmbientLight(new THREE.Color('rgb(255, 255, 255)'))
+                scene.add(ambientLight)
+                ambientLight.visible = true
+
+                // 基本點光源 PointLight
+                let pointLight = new THREE.PointLight(new THREE.Color('rgb(255, 255, 255)'))
+                pointLight.castShadow = true
+                pointLight.position.set(-10, 20, 20)
+                scene.add(pointLight)
+                let pointLightHelper = new THREE.PointLightHelper(pointLight)
+                scene.add(pointLightHelper)
+                pointLight.visible = true
+                pointLightHelper.visible = false
+
+                // 設置聚光燈 SpotLight
+                let spotLight = new THREE.SpotLight(new THREE.Color('rgb(255, 255, 255)'))
+                spotLight.position.set(-10, 20, 20)
+                spotLight.castShadow = true
+                scene.add(spotLight)
+                let spotLightHelper = new THREE.SpotLightHelper(spotLight)
+                scene.add(spotLightHelper)
+                spotLight.visible = true
+                spotLightHelper.visible = false
+
+                // 基本平行光 DirectionalLight
+                let directionalLight = new THREE.DirectionalLight(new THREE.Color('rgb(255, 255, 255)'))
+                directionalLight.position.set(-10, 20, 20)
+                directionalLight.castShadow = true
+                scene.add(directionalLight)
+                let directionalLightHelper = new THREE.DirectionalLightHelper(
+                    directionalLight
+                )
+                scene.add(directionalLightHelper)
+                directionalLight.visible = true
+                directionalLightHelper.visible = false
+
+                let gui = new dat.GUI()
+                gui.add(datGUIControls, 'AmbientLight').onChange(function (e) {
+                    ambientLight.visible = e
+                })
+                gui.add(datGUIControls, 'PointLight').onChange(function (e) {
+                    pointLight.visible = e
+                    pointLightHelper.visible = e
+                })
+                gui.add(datGUIControls, 'Spotlight').onChange(function (e) {
+                    spotLight.visible = e
+                    spotLightHelper.visible = e
+                })
+                gui.add(datGUIControls, 'DirectionalLight').onChange(function (e) {
+                    directionalLight.visible = e
+                    directionalLightHelper.visible = e
+                })
             }
 
+            let cube2;
+
             function update() {
+
+                cube2.rotation.x += 0.01
+                cube2.rotation.y += 0.01
+                cube2.rotation.z += 0.01
 
                 for (var i = 0; i < nCubes; i++) {
                     var cube = leftCubeGroup.children[i];
@@ -214,14 +273,10 @@
             }
 
             function animate() {
-                requestAnimationFrame(animate);
-
-                // Check to see if audio is playing
-                buttonCheck();
-
                 update();
-
                 renderer.render(scene, camera);
+                cameraControl.update();
+                requestAnimationFrame(animate);
             };
 
             setupScene();
@@ -235,32 +290,12 @@
 
             // Button Methods
             button.addEventListener('click', function () {
-
-                if (!soundIsPlaying) {
-                    playSound();
-                }
+                playSound();
             });
 
-            function buttonCheck() {
-
-                if (soundIsPlaying != sound.isPlaying) {
-                    console.log("Toggle Button state")
-                    //Toggle
-                    if (soundIsPlaying) { // Sound turned off
-                        soundIsPlaying = false
-                        // Show the button
-                        button.style.visibility = "visible";
-                    }
-                    else { // Sound turned on
-                        soundIsPlaying = true;
-                        button.style.visibility = "hidden";
-                    }
-                }
-            }
-
             // Data Methods
-
-            //Returns the average of a small sample of the array. Index declares which sample you want, ideal for iteration.
+            // Returns the average of a small sample of the array. Index declares which sample you want, ideal for iteration.
+            // 返回數組的小樣本的平均值。 索引聲明您想要哪個樣本，非常適合迭代
             function getSampleOfSoundData(index, noSampleSections, soundDataArray) {
                 let sampleSize = Math.floor((soundDataArray.length / 2) / noSampleSections);
 
@@ -284,6 +319,13 @@
                 }
                 return finalCode;
             }
+
+            // 監聽螢幕寬高變化來做簡單 RWD 設定
+            window.addEventListener('resize', function () {
+                camera.aspect = window.innerWidth / window.innerHeight
+                camera.updateProjectionMatrix()
+                renderer.setSize(window.innerWidth, window.innerHeight)
+            })
         }
     </script>
 </body>
