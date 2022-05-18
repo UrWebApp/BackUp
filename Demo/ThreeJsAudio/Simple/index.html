@@ -1,4 +1,6 @@
-<!-- 看完這篇改寫 https://ithelp.ithome.com.tw/articles/10199699 -->
+<!-- 參考文檔 -->
+<!-- https://ithelp.ithome.com.tw/articles/10199699 -->
+<!-- https://threejs.org/docs/#api/zh/cameras/PerspectiveCamera  -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +12,7 @@
     <title>Document</title>
     <style>
         body {
+            /* 滿版視窗 */
             margin: 0px;
             overflow: hidden;
         }
@@ -17,7 +20,9 @@
 </head>
 
 <body>
+
     <div style="display:flex;flex-direction: column;width: 100px;position: absolute;">
+        <div id="Stats"></div>
         <button class="enabled" id="startButton">開始表演</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
@@ -38,18 +43,16 @@
             // Light 光源 在場景中用來照亮物體的光。
             // Renderer 渲染器 將所要呈現的場景渲染到畫面上。
 
-            // Global Variables
-            const mediaUrl = "88.mp3";
-            const MAX_SOUND_VALUE = 256;
-            const LINES = 128;
             let button = document.getElementById('startButton');
-            let Color = randomColor();
+            button.addEventListener('click', function () {
+                playSound();
+            });
+
             let cameraControl;
 
-            // Create the Scene
-            // 參考文檔 https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
-            var scene = new THREE.Scene(); // 場景用於放置 ( 物體、相機、燈光 )
-            var camera = // 透視視角 相機 ( 還有其他種 )
+            // 參考文檔 https://threejs.org/docs/#api/zh/cameras/PerspectiveCamera
+            let scene = new THREE.Scene(); // 場景用於放置 ( 物體、相機、燈光 )
+            let camera = // 透視視角 相機 ( 還有其他種 )
                 new THREE
                     // PerspectiveCamera( fov : Number, aspect : Number, near : Number, far : Number )
                     // fov - 相機平截頭體垂直視野。
@@ -63,29 +66,30 @@
                         1000
                     );
 
-            var renderer = new THREE.WebGLRenderer(); // 用於渲染場景
-            renderer.setClearColor(new THREE.Color('rgb(0, 0, 0)')) // 預設背景顏色
-            renderer.shadowMap.enabled = true // 設定需渲染陰影效果
-            renderer.shadowMap.type = 2 // THREE.PCFSoftShadowMap
+                    let renderer = new THREE.WebGLRenderer(); // 用於渲染場景
+            renderer.setClearColor(new THREE.Color('rgb(0, 0, 0)')); // 預設背景顏色
+            renderer.shadowMap.enabled = true; // 渲染陰影效果
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 某種陰影貼圖算法
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
             camera.position.z = 50;
 
             // 創建一個 AudioListener 並將其添加到相機
-            var listener = new THREE.AudioListener();
+            let listener = new THREE.AudioListener();
             camera.add(listener);
 
             // 創建全局音頻源
-            var sound = new THREE.Audio(listener);
+            let sound = new THREE.Audio(listener);
 
             // 為這個聲音創建一個音頻分析器
-            const fftSize = 1024
-            var analyser = new THREE.AudioAnalyser(sound, fftSize);
-            let dataLength = analyser.getFrequencyData().length // 512
+            const fftSize = 1024;
+            let analyser = new THREE.AudioAnalyser(sound, fftSize);
+            let dataLength = analyser.getFrequencyData().length; // 512
 
             // 加載聲音並將其設置為 Audio 對象的緩衝區
             function playSound() {
-                var audioLoader = new THREE.AudioLoader();
+                let audioLoader = new THREE.AudioLoader();
+                const mediaUrl = "88.mp3";
                 audioLoader.load(mediaUrl, function (buffer) {
                     sound.setBuffer(buffer);
                     sound.setLoop(false);
@@ -96,40 +100,41 @@
                 });
             }
 
-            const nCubes = 32;
-            const radius = 20;
-            const left = 10;
-            const right = -10;
             let leftCubeGroup = new THREE.Group();
             let rightCubeGroup = new THREE.Group();
             let lineGroup = new THREE.Group();
-            var lines = [];
 
-            function setupScene() {
-                var geometry = new THREE.BoxGeometry(1, 1, 1);
-                var material = new THREE.MeshPhongMaterial(
+            // 初始化
+            function SetupScene() {
+
+                let geometry = new THREE.BoxGeometry(1, 1, 1);
+                let material = new THREE.MeshPhongMaterial(
                     {
-                        color: Color,
+                        color: new THREE.Color('rgb(63, 197, 212)'),
                         // wireframe: true,
                         // map : new THREE.TextureLoader().load('88.jpg')
                     }
                 );
-                var mesh = new THREE.Mesh(geometry, material);
-                var centerLeft = new THREE.Vector3(left, 0, 0);
-                var centerRight = new THREE.Vector3(right, 0, 0);
+                let mesh = new THREE.Mesh(geometry, material);
+                const left = 10;
+                let centerLeft = new THREE.Vector3(left, 0, 0);
+                const right = -10;
+                let centerRight = new THREE.Vector3(right, 0, 0);
 
                 let lineMaterial = new THREE.LineBasicMaterial(
                     {
-                        color: new THREE.Color('rgb(63, 197, 212)')
+                        color: new THREE.Color('rgb(63, 197, 212)'),
                     }
                 );
-                var points = [];
+                let points = [];
                 points.push(new THREE.Vector3(-25, -20, 0));
                 points.push(new THREE.Vector3(-25, 0, 0));
 
-                for (var i = 0; i < nCubes; i++) {
-                    var cube = mesh.clone();
-                    var angle = i * Math.PI / nCubes + Math.PI / 2;
+                const nCubes = 32;
+                const radius = 20;
+                for (let i = 0; i < nCubes; i++) {
+                    let cube = mesh.clone();
+                    let angle = i * Math.PI / nCubes + Math.PI / 2;
                     cube.position.set(Math.cos(angle) * radius + centerLeft.x, Math.sin(angle) * radius, 0);
                     cube.lookAt(centerLeft);
                     leftCubeGroup.add(cube);
@@ -142,8 +147,8 @@
                     let x = -25 + i * 50 / nCubes;
                     points[0] = new THREE.Vector3(x, -20, 0);
                     points[1] = new THREE.Vector3(x, -19, 0);
-                    var lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-                    var line = new THREE.Line(lineGeometry, lineMaterial);
+                    let lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+                    let line = new THREE.Line(lineGeometry, lineMaterial);
                     lineGroup.add(line);
                 }
                 scene.add(leftCubeGroup);
@@ -151,109 +156,110 @@
                 scene.add(lineGroup);
 
                 // 建立 OrbitControls
-                cameraControl = new OrbitControls(camera, renderer.domElement)
-                cameraControl.enableDamping = true // 啟用阻尼效果
-                cameraControl.dampingFactor = 0.25 // 阻尼系數
+                cameraControl = new OrbitControls(camera, renderer.domElement);
+                cameraControl.enableDamping = true; // 啟用阻尼效果
+                cameraControl.dampingFactor = 0.25; // 阻尼系數
                 // cameraControl.autoRotate = true // 啟用自動旋轉
 
                 // 建立物體
-                const geometry2 = new THREE.BoxGeometry(15, 15, 15) // 幾何體
-                const material2 = new THREE.MeshPhongMaterial({
-                    color: Color
-                }) // 材質
-                cube2 = new THREE.Mesh(geometry2, material2) // 建立網格物件
-                cube2.position.set(0, 10, 0)
-                scene.add(cube2)
+                const geometry2 = new THREE.BoxGeometry(15, 15, 15); // 幾何體
+                const material2 = new THREE.MeshPhongMaterial({ color: new THREE.Color('rgb(63, 197, 212)') }); // 材質
+                cube2 = new THREE.Mesh(geometry2, material2); // 建立網格物件
+                cube2.position.set(0, 10, 0);
+                scene.add(cube2);
 
                 // 簡單的地板
-                const planeGeometry = new THREE.CircleGeometry(20, 20)
-                const planeMaterial = new THREE.MeshLambertMaterial({ color: new THREE.Color('rgb(63, 197, 212)') })
-                let plane = new THREE.Mesh(planeGeometry, planeMaterial)
-                plane.rotation.x = -0.5 * Math.PI // 使平面與 y 軸垂直，並讓正面朝上
-                plane.position.set(0, -20, 0)
-                scene.add(plane)
+                const planeGeometry = new THREE.CircleGeometry(20, 20);
+                const planeMaterial = new THREE.MeshLambertMaterial({ color: new THREE.Color('rgb(63, 197, 212)') });
+                let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+                plane.rotation.x = -0.5 * Math.PI; // 使平面與 y 軸垂直，並讓正面朝上
+                plane.position.set(0, -20, 0);
+                scene.add(plane);
 
                 let datGUIControls = new (function () {
-                    this.AmbientLight = true
-                    this.PointLight = true
-                    this.Spotlight = true
-                    this.DirectionalLight = true
-                })()
+                    this.AmbientLight = true;
+                    this.PointLight = true;
+                    this.Spotlight = true;
+                    this.DirectionalLight = true;
+                })();
 
                 // 設置環境光 AmbientLight
-                let ambientLight = new THREE.AmbientLight(new THREE.Color('rgb(255, 255, 255)'))
-                scene.add(ambientLight)
-                ambientLight.visible = true
+                let ambientLight = new THREE.AmbientLight(new THREE.Color('rgb(255, 255, 255)'));
+                scene.add(ambientLight);
+                ambientLight.visible = true;
 
                 // 基本點光源 PointLight
-                let pointLight = new THREE.PointLight(new THREE.Color('rgb(255, 255, 255)'))
-                pointLight.castShadow = true
-                pointLight.position.set(-10, 20, 20)
-                scene.add(pointLight)
-                let pointLightHelper = new THREE.PointLightHelper(pointLight)
-                scene.add(pointLightHelper)
-                pointLight.visible = true
-                pointLightHelper.visible = false
+                let pointLight = new THREE.PointLight(new THREE.Color('rgb(255, 255, 255)'));
+                pointLight.castShadow = true;
+                pointLight.position.set(-10, 20, 20);
+                scene.add(pointLight);
+                let pointLightHelper = new THREE.PointLightHelper(pointLight);
+                scene.add(pointLightHelper);
+                pointLight.visible = true;
+                pointLightHelper.visible = false;
 
                 // 設置聚光燈 SpotLight
-                let spotLight = new THREE.SpotLight(new THREE.Color('rgb(255, 255, 255)'))
-                spotLight.position.set(-10, 20, 20)
-                spotLight.castShadow = true
-                scene.add(spotLight)
-                let spotLightHelper = new THREE.SpotLightHelper(spotLight)
-                scene.add(spotLightHelper)
-                spotLight.visible = true
-                spotLightHelper.visible = false
+                let spotLight = new THREE.SpotLight(new THREE.Color('rgb(255, 255, 255)'));
+                spotLight.position.set(-10, 20, 20);
+                spotLight.castShadow = true;
+                scene.add(spotLight);
+                let spotLightHelper = new THREE.SpotLightHelper(spotLight);
+                scene.add(spotLightHelper);
+                spotLight.visible = true;
+                spotLightHelper.visible = false;
 
                 // 基本平行光 DirectionalLight
-                let directionalLight = new THREE.DirectionalLight(new THREE.Color('rgb(255, 255, 255)'))
-                directionalLight.position.set(-10, 20, 20)
-                directionalLight.castShadow = true
-                scene.add(directionalLight)
-                let directionalLightHelper = new THREE.DirectionalLightHelper(
-                    directionalLight
-                )
-                scene.add(directionalLightHelper)
-                directionalLight.visible = true
-                directionalLightHelper.visible = false
+                let directionalLight = new THREE.DirectionalLight(new THREE.Color('rgb(255, 255, 255)'));
+                directionalLight.position.set(-10, 20, 20);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+                let directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight);
+                scene.add(directionalLightHelper);
+                directionalLight.visible = true;
+                directionalLightHelper.visible = false;
 
-                let gui = new dat.GUI()
+                // GUI
+                let gui = new dat.GUI();
                 gui.add(datGUIControls, 'AmbientLight').onChange(function (e) {
-                    ambientLight.visible = e
+                    ambientLight.visible = e;
                 })
                 gui.add(datGUIControls, 'PointLight').onChange(function (e) {
-                    pointLight.visible = e
-                    pointLightHelper.visible = e
+                    pointLight.visible = e;
+                    pointLightHelper.visible = e;
                 })
                 gui.add(datGUIControls, 'Spotlight').onChange(function (e) {
-                    spotLight.visible = e
-                    spotLightHelper.visible = e
+                    spotLight.visible = e;
+                    spotLightHelper.visible = e;
                 })
                 gui.add(datGUIControls, 'DirectionalLight').onChange(function (e) {
-                    directionalLight.visible = e
-                    directionalLightHelper.visible = e
+                    directionalLight.visible = e;
+                    directionalLightHelper.visible = e;
                 })
             }
 
             let cube2;
 
-            function update() {
+            function UpdateFrame() {
 
                 cube2.rotation.x += 0.01
                 cube2.rotation.y += 0.01
                 cube2.rotation.z += 0.01
 
-                for (var i = 0; i < nCubes; i++) {
-                    var cube = leftCubeGroup.children[i];
+                const nCubes = 32;
+                const radius = 20;
+                const left = 10;
+                const right = -10;
+                for (let i = 0; i < nCubes; i++) {
+                    let cube = leftCubeGroup.children[i];
                     let angle = i * Math.PI / nCubes + Math.PI / 2;
                     let freq = getSampleOfSoundData(i, nCubes, analyser.getFrequencyData());
                     let z = freq * 15;
                     cube.scale.set(1, 1, z);
 
-                    var center = new THREE.Vector3(left, 0, 0);
-                    var direction = cube.position.sub(center).normalize();
-                    var position = new THREE.Vector3(Math.cos(angle) * radius + center.x, Math.sin(angle) * radius, 0);
-                    var offset = position.add(direction.multiplyScalar(z / 2));
+                    let center = new THREE.Vector3(left, 0, 0);
+                    let direction = cube.position.sub(center).normalize();
+                    let position = new THREE.Vector3(Math.cos(angle) * radius + center.x, Math.sin(angle) * radius, 0);
+                    let offset = position.add(direction.multiplyScalar(z / 2));
                     cube.position.set(offset.x, offset.y, offset.z);
 
                     cube = rightCubeGroup.children[i];
@@ -265,33 +271,18 @@
                     offset = position.add(direction.multiplyScalar(z / 2));
                     cube.position.set(offset.x, offset.y, offset.z);
 
-                    var line = lineGroup.children[i];
-                    var positions = line.geometry.attributes.position.array;
+                    let line = lineGroup.children[i];
+                    let positions = line.geometry.attributes.position.array;
                     positions[4] = -19 + z * 2;
                     line.geometry.attributes.position.needsUpdate = true;
                 }
             }
 
-            function animate() {
-                update();
-                renderer.render(scene, camera);
-                cameraControl.update();
-                requestAnimationFrame(animate);
-            };
 
-            setupScene();
-            animate();
 
-            // function needResize() {
-            //   const width = canvas.clientWidth, height = canvas.clientHeight;
-            //   if (canvas.width !== width || canvas.height !== height) return true;
-            //   else return false;
-            // }
-
-            // Button Methods
-            button.addEventListener('click', function () {
-                playSound();
-            });
+            // 初始化
+            SetupScene();
+            Animation();
 
             // Data Methods
             // Returns the average of a small sample of the array. Index declares which sample you want, ideal for iteration.
@@ -308,24 +299,24 @@
                 }
                 let average = sum / sampleSize;
 
+                const MAX_SOUND_VALUE = 256;
                 return average / MAX_SOUND_VALUE;
             }
 
-            function randomColor() {
-                var makingColorCode = '0123456789ABCDEF';
-                var finalCode = '#';
-                for (var counter = 0; counter < 6; counter++) {
-                    finalCode = finalCode + makingColorCode[Math.floor(Math.random() * 16)];
-                }
-                return finalCode;
-            }
+            // 回呼更新
+            function Animation() {
+                requestAnimationFrame(Animation);
+                UpdateFrame();
+                renderer.render(scene, camera);
+                cameraControl.update();
+            };
 
-            // 監聽螢幕寬高變化來做簡單 RWD 設定
+            // 監聽螢幕寬高變化 RWD
             window.addEventListener('resize', function () {
                 camera.aspect = window.innerWidth / window.innerHeight
                 camera.updateProjectionMatrix()
                 renderer.setSize(window.innerWidth, window.innerHeight)
-            })
+            });
         }
     </script>
 </body>
