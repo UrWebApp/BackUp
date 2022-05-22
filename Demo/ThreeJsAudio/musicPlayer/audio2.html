@@ -117,7 +117,7 @@
     <select id="MusicSelect">
     </select>
     <audio controls id="MediaElement">
-        <source src="music/airball.mp3" />
+        <source src="/musicPlayer/music/airball.mp3" />
     </audio>
     <div class="PlayerControl">
         <div>
@@ -162,8 +162,8 @@
 		</script>
     <script type="module">
         import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js';
-
-        let scene, camera, renderer, analyser, uniforms;
+        window.onload = function (){
+            let scene, camera, renderer, analyser, uniforms;
 
         const MediaElement = document.getElementById('MediaElement');
         const Backward = document.getElementById('Backward');
@@ -178,11 +178,8 @@
         const SongList = document.getElementById('SongList');
         const MySongs = document.getElementById('MySongs');
         const MusicBook = document.querySelector('.MusicBook');
-        let listener;
-        let audio;
-
-        document.getElementById('change').addEventListener('click', function () {
-            MediaElement.children[0].src = "/music/moon.mp3";
+        document.getElementById('change').addEventListener('click',function(){
+            MediaElement.children[0].src="/music/moon.mp3";
             MediaElement.load();
             Play();
         })
@@ -215,7 +212,7 @@
         Forward.addEventListener('click', function () {
             ChangeTime(5);
         });
-
+        Init();
         InitList();
         function ChangeVolume(v) {
             VolumeControl.value = parseInt(VolumeControl.value) + v;
@@ -242,138 +239,116 @@
             MediaElement.currentTime = 0;
             PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`
         }
-        Init();
         function Play() {
-
-            let audioLoader = new THREE.AudioLoader();
-            const mediaUrl = MediaElement.children[0].src;
-            audioLoader.load(mediaUrl, function (buffer) {
-                audio.setBuffer(buffer);
-                audio.setLoop(false);
-                audio.setVolume(0.5);
-                if (audio.play() == undefined) {
-                    audio.stop();
-                    PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`;
-                }else{
-                    PlayBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
-                }
-            });
-
+            if (MediaElement.paused) {
+                //MediaElement.paused 是 boolean
+                
+                MediaElement.play();
+                PlayBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+            }
+            else {
+                MediaElement.pause();
+                PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+            }
         }
-
+   
         function ChangeTime(time) {
             MediaElement.currentTime += time;
         }
-        function Init() {
+            function Init() {
 
-            const fftSize = 128;
+                const fftSize = 128;
 
 
-            const container = document.getElementById('container');
+                const container = document.getElementById('container');
 
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(0x000000);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
+                renderer = new THREE.WebGLRenderer({ antialias: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
 
-            scene = new THREE.Scene();
+                scene = new THREE.Scene();
 
-            camera = new THREE.Camera();
+                camera = new THREE.Camera();
 
-            //
+                //
 
-            listener = new THREE.AudioListener();
-            console.log(listener, "listener");
+                const listener = new THREE.AudioListener();
+                console.log(listener, "listener");
 
-            audio = new THREE.Audio(listener);
-            console.log(audio, "audio");
-            // const file = "/musicPlayer/music/airball.mp3";
-            // if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-            // 行動裝置版本
-            //     const loader = new THREE.AudioLoader();
-            //     loader.load(file, function (buffer) {
+                const audio = new THREE.Audio(listener);
+                console.log(audio, "audio");
+         
+                audio.setMediaElementSource(MediaElement);
+                audio.hasPlaybackControl = true;
+                let audioLoader = new THREE.AudioLoader();
 
-            //         audio.setBuffer(buffer);
-            //         audio.play();
+                audioLoader.load(MediaElement.children[0].src, function (buffer) {
+                    audio.setBuffer(buffer);
+                    audio.setLoop(false);
+                    audio.setVolume(0.5);
+                });
 
-            //     });
-
-            // } else {
-
-            // const mediaElement = document.getElementById('MusicElement');
-
-            // }
-
-            analyser = new THREE.AudioAnalyser(audio, fftSize);
-
-            //
-
-            const format = (renderer.capabilities.isWebGL2) ? THREE.RedFormat : THREE.LuminanceFormat;
-
-            uniforms = {
-
-                tAudioData: { value: new THREE.DataTexture(analyser.data, fftSize / 2, 1, format) }
-
-            };
-
-            const material = new THREE.ShaderMaterial({
-
-                uniforms: uniforms,
-                vertexShader: document.getElementById('vertexShader').textContent,
-                fragmentShader: document.getElementById('fragmentShader').textContent
-
-            });
-
-            const geometry = new THREE.PlaneGeometry(1, 1);
-
-            const mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh);
-
-            //
-
-            window.addEventListener('resize', onWindowResize);
-
-            animate();
-
-        }
-
-        function onWindowResize() {
-
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-        }
-
-        function animate() {
-
-            requestAnimationFrame(animate);
-
-            render();
-
-        }
-
-        function render() {
-
-            analyser.getFrequencyData();
-
-            uniforms.tAudioData.value.needsUpdate = true;
-
-            renderer.render(scene, camera);
-
-        }
-        function PlaySound() {
-            let audioLoader = new THREE.AudioLoader();
-            const mediaUrl = MediaElement.children[0].src;
-            audioLoader.load(mediaUrl, function (buffer) {
-                audio.setBuffer(buffer);
-                audio.setLoop(false);
-                audio.setVolume(0.5);
-                audio.play();
-                // if (audio.play() == undefined) {
-                //     audio.stop();
                 // }
-            });
-        }
+
+                analyser = new THREE.AudioAnalyser(audio, fftSize);
+
+                //
+
+                const format = (renderer.capabilities.isWebGL2) ? THREE.RedFormat : THREE.LuminanceFormat;
+
+                uniforms = {
+
+                    tAudioData: { value: new THREE.DataTexture(analyser.data, fftSize / 2, 1, format) }
+
+                };
+
+                const material = new THREE.ShaderMaterial({
+
+                    uniforms: uniforms,
+                    vertexShader: document.getElementById('vertexShader').textContent,
+                    fragmentShader: document.getElementById('fragmentShader').textContent
+
+                });
+
+                const geometry = new THREE.PlaneGeometry(1, 1);
+
+                const mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                //
+
+                window.addEventListener('resize', onWindowResize);
+
+                animate();
+
+            }
+
+            function onWindowResize() {
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+            }
+
+            function animate() {
+
+                requestAnimationFrame(animate);
+
+                render();
+
+            }
+
+            function render() {
+
+                analyser.getFrequencyData();
+
+                uniforms.tAudioData.value.needsUpdate = true;
+
+                renderer.render(scene, camera);
+
+            }
+
 
         function InitList() {
             const MusicList = [
@@ -411,6 +386,8 @@
                 event.target.appendChild(document.getElementById(data));
             else
                 event.target.parentNode.appendChild(document.getElementById(data));
+        }
+
         }
 
 

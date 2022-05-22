@@ -97,12 +97,9 @@
                 let audioLoader = new THREE.AudioLoader();
             
                 audioLoader.load(mediaUrl, function (buffer) {
-                    sound.setBuffer(buffer);
-                    sound.setLoop(false);
-                    sound.setVolume(0.5);
-                    if (sound.play() == undefined) {
-                        sound.stop();
-                    }
+                    audio.setBuffer(buffer);
+                    audio.setLoop(false);
+                    audio.setVolume(0.5);
                 });
             }
 
