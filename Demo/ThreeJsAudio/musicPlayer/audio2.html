@@ -58,14 +58,25 @@
         }
 
         .PlayerControl {
+            position: absolute;
             display: flex;
             align-items: center;
             flex-direction: column;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 10%);
         }
 
         .MusicBook {
-            display: flex;
+            transition: all 5s;
+            display: none;
             justify-content: center;
+            opacity: 0%;
+        }
+
+        .active {
+            opacity: 100%;
+            display: flex;
         }
 
         #SongList,
@@ -73,6 +84,68 @@
             width: 300px;
             height: 200px;
             border: 1px solid white;
+        }
+
+        #VolumeControl {
+            width: 400px;
+            height: 8px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border: 3px solid #808080;
+            background-color: #c8c8c8;
+            outline: none;
+        }
+
+        #VolumeControl::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 35px;
+            height: 25px;
+            background-color: #4a4848;
+            border: 3px groove white;
+        }
+
+        #VolumeControl::-moz-range-thumb {
+            -moz-appearance: none;
+            width: 35px;
+            height: 25px;
+            background-color: #4a4848;
+            border: 3px groove white;
+        }
+
+        #SongInfo {
+            width: 200px;
+        }
+
+
+        #Progress {
+            width: 500px;
+            height: 5px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            margin-bottom: 10px;
+            background-color: #c8c8c8;
+            outline: none;
+        }
+
+        #Progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 5px;
+            background-color: #b60000;
+            cursor: pointer;
+            transition: .5s;
+        }
+
+        #Progress::-webkit-slider-thumb:hover {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        #VolInfo {
+            color: yellow;
+            background: none;
+            text-align: center;
         }
     </style>
 
@@ -108,30 +181,30 @@
 
 			}
 
-		</script>
+	</script>
 
 </head>
 
 <body>
-    <button id="change">change</button>
-    <select id="MusicSelect">
-    </select>
-    <audio controls id="MediaElement">
-        <source src="/musicPlayer/music/airball.mp3" />
+    <audio controls id="MediaElement" style="display: none;">
+        <source />
     </audio>
     <div class="PlayerControl">
+        <select id="MusicSelect">
+        </select>
         <div>
             <button onclick="Play()">play</button>
-            <button><i class="fa-solid fa-backward-fast"></i></button>
+            <button id="LastSong"><i class="fa-solid fa-backward-fast"></i></button>
             <button id="Backward"><i class="fa-solid fa-backward"></i></button>
             <button id="BtnStop"><i class="fa-solid fa-stop"></i></button>
             <button id="BtnPlay"><i class="fa-solid fa-play"></i></button>
             <button id="Forward"><i class="fa-solid fa-forward"></i></button>
-            <button><i class="fa-solid fa-forward-fast"></i></button>
+            <button id="NextSong"><i class="fa-solid fa-forward-fast"></i></button>
             <button id="BtnMute"><i class="fa-solid fa-volume-high"></i></button>
-            <button><i class="fa-solid fa-shuffle"></i></button>
-            <button><i class="fa-solid fa-arrows-rotate"></i></button>
-            <button><i class="fa-solid fa-repeat"></i></button>
+            <button id="BtnRandom"><i class="fa-solid fa-shuffle"></i></button>
+            <button id="BtnLoop"><i class="fa-solid fa-arrows-rotate"></i></button>
+            <button id="BtnAllLoop"><i class="fa-solid fa-repeat"></i></button>
+            <button id="BtnBook"><i class="fa-solid fa-sliders"></i></button>
         </div>
         <input id="VolInfo" type="text" readonly />
         <div>
@@ -139,10 +212,17 @@
             <input id="VolumeControl" type="range" max="100" min="0" />
             <button id="VolPlus"><i class="fa-solid fa-plus"></i></button>
         </div>
+        <div id="SongInfo">
+            <marquee>請按下播放鈕</marquee>
+            <div>00:00 / 00:00</div>
+            <div>狀態</div>
+        </div>
+        <input id="Progress" type="range" value="0" />
         <div class="MusicBook">
             <div id="SongList">
 
             </div>
+            <button id="BtnUpdate">更新歌單</button>
             <div id="MySongs">
 
             </div>
@@ -162,99 +242,237 @@
 		</script>
     <script type="module">
         import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js';
-        window.onload = function (){
+        window.onload = function () {
             let scene, camera, renderer, analyser, uniforms;
 
-        const MediaElement = document.getElementById('MediaElement');
-        const Backward = document.getElementById('Backward');
-        const Forward = document.getElementById('Forward');
-        const PlayBtn = document.getElementById('BtnPlay');
-        const StopBtn = document.getElementById('BtnStop');
-        const VolumeControl = document.getElementById('VolumeControl');
-        const VolInfo = document.getElementById('VolInfo');
-        const VolMinus = document.getElementById('VolMinus');
-        const VolPlus = document.getElementById('VolPlus');
-        const MuteBtn = document.getElementById('BtnMute');
-        const SongList = document.getElementById('SongList');
-        const MySongs = document.getElementById('MySongs');
-        const MusicBook = document.querySelector('.MusicBook');
-        document.getElementById('change').addEventListener('click',function(){
-            MediaElement.children[0].src="/music/moon.mp3";
-            MediaElement.load();
-            Play();
-        })
+            const MediaElement = document.getElementById('MediaElement');
+            const Backward = document.getElementById('Backward');
+            const Forward = document.getElementById('Forward');
+            const PlayBtn = document.getElementById('BtnPlay');
+            const StopBtn = document.getElementById('BtnStop');
+            const VolumeControl = document.getElementById('VolumeControl');
+            const VolInfo = document.getElementById('VolInfo');
+            const VolMinus = document.getElementById('VolMinus');
+            const VolPlus = document.getElementById('VolPlus');
+            const MuteBtn = document.getElementById('BtnMute');
+            const SongList = document.getElementById('SongList');
+            const MySongs = document.getElementById('MySongs');
+            const MusicBook = document.querySelector('.MusicBook');
+            const UpdateBtn = document.getElementById('BtnUpdate')
+            const LastSong = document.getElementById('LastSong');
+            const NextSong = document.getElementById('NextSong');
+            const MusicSelect = document.getElementById('MusicSelect');
+            const Progress = document.getElementById('Progress');
+            const SongInfo = document.getElementById('SongInfo');
+            const RandomBtn = document.getElementById('BtnRandom');
+            const LoopBtn = document.getElementById('BtnLoop');
+            const BookBtn = document.getElementById('BtnBook');
+            const AllLoopBtn = document.getElementById('BtnAllLoop');
+            const listener = new THREE.AudioListener();
 
-        SongList.addEventListener('drop', function () {
-            drop(event);
-        })
-        SongList.addEventListener('dragover', function () {
-            allowdrop(event);
-        })
-        MySongs.addEventListener('drop', function () {
-            drop(event);
-        })
-        MySongs.addEventListener('dragover', function () {
-            allowdrop(event);
-        })
-        MuteBtn.addEventListener('click', SetMute);
-        VolumeControl.addEventListener('input', SetVolume);
-        VolMinus.addEventListener('click', function () {
-            ChangeVolume(-1);
-        });
-        VolPlus.addEventListener('click', function () {
-            ChangeVolume(1);
-        });
-        StopBtn.addEventListener('click', Stop);
-        PlayBtn.addEventListener('click', Play);
-        Backward.addEventListener('click', function () {
-            ChangeTime(-5);
-        });
-        Forward.addEventListener('click', function () {
-            ChangeTime(5);
-        });
-        Init();
-        InitList();
-        function ChangeVolume(v) {
-            VolumeControl.value = parseInt(VolumeControl.value) + v;
-            SetVolume();
-        }
-        function SetMute() {
-            MediaElement.muted = !MediaElement.muted;
+            console.log(listener, "listener");
 
+            const audio = new THREE.Audio(listener);
+            console.log(audio, "audio");
+
+
+            Init();
+            InitList();
+            GetDuration();
             SetVolume();
-        }
-        SetVolume();
-        function SetVolume() {
-            VolInfo.value = `目前音量:${VolumeControl.value}`;
-            MediaElement.volume = VolumeControl.value / 100;
-            if (MediaElement.volume == 0 || MediaElement.muted) {
-                MuteBtn.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`;
+            ChangeMusic(0);
+
+            BookBtn.addEventListener('click', ToggleBook);
+            RandomBtn.addEventListener('click', SetRandom);
+            LoopBtn.addEventListener('click', SetLoop);
+            AllLoopBtn.addEventListener('click', SetAllLoop);
+            Progress.addEventListener('input', function () {
+                MediaElement.currentTime = Progress.value;
+            });
+            LastSong.addEventListener('click', function () {
+                ChangeSong(-1);
+            });
+            NextSong.addEventListener('click', function () {
+                ChangeSong(1);
+            });
+            MusicSelect.addEventListener('change', function () {
+                ChangeMusic(MusicSelect.selectedIndex);
+            });
+            UpdateBtn.addEventListener('click', UpdateMusic);
+            SongList.addEventListener('drop', function () {
+                drop(event);
+            })
+            SongList.addEventListener('dragover', function () {
+                allowdrop(event);
+            })
+            MySongs.addEventListener('drop', function () {
+                drop(event);
+            })
+            MySongs.addEventListener('dragover', function () {
+                allowdrop(event);
+            })
+            MuteBtn.addEventListener('click', SetMute);
+            VolumeControl.addEventListener('input', SetVolume);
+            VolMinus.addEventListener('click', function () {
+                ChangeVolume(-1);
+            });
+            VolPlus.addEventListener('click', function () {
+                ChangeVolume(1);
+            });
+            StopBtn.addEventListener('click', Stop);
+            PlayBtn.addEventListener('click', Play);
+            Backward.addEventListener('click', function () {
+                ChangeTime(-5);
+            });
+            Forward.addEventListener('click', function () {
+                ChangeTime(5);
+            });
+
+
+            function ToggleBook() {
+                if (MusicBook.classList[1] == 'active') {
+                    MusicBook.classList.remove('active');
+                    return
+                }
+                MusicBook.classList.add('active');
             }
-            else {
-                MuteBtn.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
+            function ChangeVolume(v) {
+                VolumeControl.value = parseInt(VolumeControl.value) + v;
+                SetVolume();
             }
-        }
-        function Stop() {
-            MediaElement.pause();
-            MediaElement.currentTime = 0;
-            PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`
-        }
-        function Play() {
-            if (MediaElement.paused) {
-                //MediaElement.paused 是 boolean
-                
-                MediaElement.play();
-                PlayBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+            function SetMute() {
+                MediaElement.muted = !MediaElement.muted;
+
+                SetVolume();
             }
-            else {
+
+            var min = 0, sec = 0, min2 = 0, sec2 = 0;
+            function GetTimeFormat(timeSec) {
+                min = parseInt(timeSec / 60);
+                sec = parseInt(timeSec % 60);
+                min = min < 10 ? "0" + min : min;
+                sec = sec < 10 ? "0" + sec : sec;
+
+                return min + ":" + sec;
+            }
+
+            function GetDuration() {
+                Progress.max = parseInt(MediaElement.duration);
+                Progress.value = parseInt(MediaElement.currentTime);
+                let w = (MediaElement.currentTime / MediaElement.duration * 100) + "%";
+                Progress.style.backgroundImage = "-webkit-linear-gradient(left,#b60000,#b60000 " + w + ", #c8c8c8 " + w + ",#c8c8c8)";
+
+                SongInfo.children[1].innerText = GetTimeFormat(MediaElement.currentTime) + " / " + GetTimeFormat(MediaElement.duration);
+                setTimeout(GetDuration, 10);
+                if (MediaElement.currentTime == MediaElement.duration) {
+                    if (SongInfo.children[2].innerText == "隨機播放") {
+                        var n = Math.floor(Math.random() * MusicSelect.options.length);
+                        ChangeMusic(n);
+                    }
+                    else if (SongInfo.children[2].innerText == "全曲循環" && MusicSelect.selectedIndex == MusicSelect.options.length - 1) {
+
+                        ChangeMusic(0);
+                    }
+                    else if (SongInfo.children[2].innerText == "單曲循環") {
+                        //changeMusic(song.selectedIndex);
+                        ChangeSong(0);
+                    }
+                    else if (MusicSelect.selectedIndex == MusicSelect.options.length - 1) {
+                        Stop();
+                    }
+                    else
+                        ChangeSong(1);
+                }
+            }
+            //全曲循環
+            function SetAllLoop() {
+
+                SongInfo.children[2].innerText = SongInfo.children[2].innerText == "全曲循環" ? "狀態" : "全曲循環";
+
+
+            }
+
+            //隨機播放
+            function SetRandom() {
+                SongInfo.children[2].innerText = SongInfo.children[2].innerText == "隨機播放" ? "狀態" : "隨機播放";
+
+            }
+
+            //單曲循環
+            function SetLoop() {
+
+                SongInfo.children[2].innerText = SongInfo.children[2].innerText == "單曲循環" ? "狀態" : "單曲循環";
+
+                //console.log(audio.loop);
+
+            }
+
+            function SetVolume() {
+                VolInfo.value = `目前音量:${VolumeControl.value}`;
+                MediaElement.volume = VolumeControl.value / 100;
+                var z = VolumeControl.value + "%";
+                VolumeControl.style.backgroundImage = "-webkit-linear-gradient(left,#009d72,#009d72 " + z + ", #c8c8c8 " + z + ",#c8c8c8)";
+                if (MediaElement.volume == 0 || MediaElement.muted) {
+                    MuteBtn.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`;
+                }
+                else {
+                    MuteBtn.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
+                }
+            }
+            function Stop() {
                 MediaElement.pause();
-                PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+                MediaElement.currentTime = 0;
+                PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`
             }
-        }
-   
-        function ChangeTime(time) {
-            MediaElement.currentTime += time;
-        }
+            function Play() {
+                if (MediaElement.paused) {
+                    //MediaElement.paused 是 boolean
+                    audio.context.resume();
+                    MediaElement.play();
+                    GetDuration();
+                    PlayBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+                    SongInfo.children[0].innerText = `目前播放:${MediaElement.children[0].title}`
+                }
+                else {
+                    MediaElement.pause();
+                    PlayBtn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+                }
+            }
+            function ChangeMusic(i) {
+
+                MusicSelect.options[i].selected = true;
+                console.log(MusicSelect.options[i].value)
+                MediaElement.children[0].src = MusicSelect.options[i].value;
+                MediaElement.children[0].title = MusicSelect.options[i].innerText;
+                MediaElement.pause();
+                MediaElement.load();
+
+                if (PlayBtn.innerHTML == `<i class="fa-solid fa-pause"></i>`)
+                    Play();
+            }
+            function ChangeSong(i) {
+                let index = MusicSelect.selectedIndex + i;
+                //console.log(index);
+                if (i == 1 && MusicSelect.selectedIndex == MusicSelect.options.length - 1)
+                    ChangeMusic(0);
+                else if (i == -1 && MusicSelect.selectedIndex == 0)
+                    ChangeMusic(MusicSelect.options.length - 1);
+                else
+                    ChangeMusic(index);
+            }
+            function UpdateMusic() {
+                //參考 https://stackoverflow.com/questions/15094886/why-is-foreach-not-working-for-children
+                let child = Array.from(MySongs.children);
+                let str = "";
+                child.forEach((value, index, array) => {
+                    str += `<option value="${value.dataset.src}">${value.innerText}</option>`
+                })
+                MusicSelect.innerHTML = str;
+                ChangeMusic(0);
+            }
+            function ChangeTime(time) {
+                MediaElement.currentTime += time;
+            }
             function Init() {
 
                 const fftSize = 128;
@@ -274,21 +492,16 @@
 
                 //
 
-                const listener = new THREE.AudioListener();
-                console.log(listener, "listener");
 
-                const audio = new THREE.Audio(listener);
-                console.log(audio, "audio");
-         
                 audio.setMediaElementSource(MediaElement);
                 audio.hasPlaybackControl = true;
                 let audioLoader = new THREE.AudioLoader();
 
-                audioLoader.load(MediaElement.children[0].src, function (buffer) {
-                    audio.setBuffer(buffer);
-                    audio.setLoop(false);
-                    audio.setVolume(0.5);
-                });
+                // audioLoader.load(MediaElement.children[0].src, function (buffer) {
+                //     audio.setBuffer(buffer);
+                //     audio.setLoop(false);
+                //     audio.setVolume(0.5);
+                // });
 
                 // }
 
@@ -350,46 +563,47 @@
             }
 
 
-        function InitList() {
-            const MusicList = [
-                { name: "Champs-Elyees", src: "/music/elysees.mp3", favorite: false },
-                { name: "告白氣球", src: "/music/airball.mp3", favorite: false },
-                { name: "帶你去旅行", src: "/music/travel.mp3", favorite: false },
-                { name: "私奔到月球", src: "/music/moon.mp3", favorite: false },
-                { name: "Nothing Ganna Change My Love For You", src: "/music/nothing.mp3", favorite: false },
-            ]
-            let str = "";
-            MusicList.forEach((music, index, array) => {
-                str += `<div draggable="true" id="Song${index + 1}" data-src="${music.src}">${music.name}</div>`
-            })
-
-            SongList.innerHTML = str;
-
-            for (let i = 0; i < SongList.children.length; i++) {
-                SongList.children[i].addEventListener('dragstart', function () {
-                    drag(event);
+            function InitList() {
+                const MusicList = [
+                    { name: "Champs-Elyees", src: "music/elysees.mp3", favorite: false },
+                    { name: "告白氣球", src: "music/airball.mp3", favorite: false },
+                    { name: "帶你去旅行", src: "music/travel.mp3", favorite: false },
+                    { name: "私奔到月球", src: "music/moon.mp3", favorite: false },
+                    { name: "Nothing Ganna Change My Love For You", src: "music/nothing.mp3", favorite: false },
+                ]
+                let str = "";
+                let SelectStr = "";
+                MusicList.forEach((music, index, array) => {
+                    SelectStr += `<option value="${music.src}">${music.name}</option>`;
+                    str += `<div draggable="true" id="Song${index + 1}" data-src="${music.src}">${music.name}</div>`;
                 })
+                console.log(SelectStr);
+                SongList.innerHTML = str;
+                MusicSelect.innerHTML = SelectStr;
+                for (let i = 0; i < SongList.children.length; i++) {
+                    SongList.children[i].addEventListener('dragstart', function () {
+                        drag(event);
+                    })
+                }
             }
-        }
-        function drag(event) {
-            event.dataTransfer.setData("song", event.target.id);
-        }
-        function allowdrop(event) {
-            event.preventDefault();
-        }
-        function drop(event) {
-            event.preventDefault();
-            console.log(event);
-            let data = event.dataTransfer.getData("song");
-            console.log(event.target)
-            if (event.target.id == "Mysongs" || "SongList")
-                event.target.appendChild(document.getElementById(data));
-            else
-                event.target.parentNode.appendChild(document.getElementById(data));
-        }
+            function drag(event) {
+                event.dataTransfer.setData("song", event.target.id);
+            }
+            function allowdrop(event) {
+                event.preventDefault();
+            }
+            function drop(event) {
+                event.preventDefault();
+                console.log(event);
+                let data = event.dataTransfer.getData("song");
+                console.log(event.target)
+                if (event.target.id == "Mysongs" || "SongList")
+                    event.target.appendChild(document.getElementById(data));
+                else
+                    event.target.parentNode.appendChild(document.getElementById(data));
+            }
 
         }
-
 
     </script>
 
