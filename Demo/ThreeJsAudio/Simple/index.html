@@ -23,6 +23,7 @@
 
     <div style="display:flex;flex-direction: column;width: 100px;position: absolute;">
         <div id="Stats"></div>
+        <button id="change">換歌</button>
         <button class="enabled" id="startButton">開始表演</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
@@ -85,11 +86,16 @@
             const fftSize = 1024;
             let analyser = new THREE.AudioAnalyser(sound, fftSize);
             let dataLength = analyser.getFrequencyData().length; // 512
-
+            const change = document.getElementById('change');
+            let mediaUrl = "88.mp3";
+            change.addEventListener('click', function(){
+                mediaUrl = "moon.mp3";
+            })
+            
             // 加載聲音並將其設置為 Audio 對象的緩衝區
             function playSound() {
                 let audioLoader = new THREE.AudioLoader();
-                const mediaUrl = "88.mp3";
+            
                 audioLoader.load(mediaUrl, function (buffer) {
                     sound.setBuffer(buffer);
                     sound.setLoop(false);
