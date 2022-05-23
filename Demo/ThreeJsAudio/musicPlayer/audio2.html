@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>three.js webaudio - visualizer</title>
+    <title>愷的視覺化撥放器</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
@@ -17,6 +17,7 @@
             font-size: 13px;
             line-height: 24px;
             overscroll-behavior: none;
+            overflow-x: hidden;
         }
 
         a {
@@ -71,18 +72,31 @@
             transition: all 5s;
             display: none;
             justify-content: center;
-            opacity: 0%;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .active {
-            opacity: 100%;
             display: flex;
         }
 
         #SongList,
         #MySongs {
+            text-align: center;
             width: 300px;
-            height: 200px;
+            height: 300px;
+            border: 1px solid white;
+        }
+
+        #SongList>:nth-child(1n+0),
+        #MySongs>:nth-child(1n+1) {
+            color: #000;
+            font-size: 16px;
+            background: #ff6e7f;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #bfe9ff, #ff6e7f);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #bfe9ff, #ff6e7f);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             border: 1px solid white;
         }
 
@@ -113,12 +127,14 @@
         }
 
         #SongInfo {
+            font-size: 20px;
             width: 200px;
+            text-align: center;
         }
 
 
         #Progress {
-            width: 500px;
+            width: 40rem;
             height: 5px;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -146,6 +162,70 @@
             color: yellow;
             background: none;
             text-align: center;
+            margin-bottom: 15px;
+        }
+
+        #MusicSelect {
+            font-size: 30px;
+            text-align: center;
+            background: black;
+            color: black;
+            padding: 5px;
+            margin: 5px;
+            background: #ff6e7f;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #bfe9ff, #ff6e7f);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #bfe9ff, #ff6e7f);
+            font-weight: 700;
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            animation-name: select;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            transition: all 1.5s;
+
+        }
+
+        @keyframes select {
+            0% {
+                background: linear-gradient(to right, #ff6e7f, #ff6e7f);
+            }
+
+
+            25% {
+                background: linear-gradient(to right, #bfe9ff, #ff6e7f);
+            }
+
+            50% {
+
+                background: linear-gradient(to right, #bfe9ff, #bfe9ff);
+            }
+
+            75% {
+                background: linear-gradient(to right, #ff6e7f, #bfe9ff);
+            }
+
+            100% {
+                background: linear-gradient(to right, #ff6e7f, #ff6e7f);
+            }
+        }
+
+        .Control>button {
+            color: yellow;
+            padding: 5px;
+            background-color: transparent;
+            transition: all 1s;
+            font-size: 20px;
+        }
+
+        .Control>button:hover {
+            transition: all 1s;
+            color: #ff6e7f;
+            transform: scale(1.2);
+        }
+
+        #container {
+            margin-top: 45px;
         }
     </style>
 
@@ -192,8 +272,7 @@
     <div class="PlayerControl">
         <select id="MusicSelect">
         </select>
-        <div>
-            <button onclick="Play()">play</button>
+        <div class="Control">
             <button id="LastSong"><i class="fa-solid fa-backward-fast"></i></button>
             <button id="Backward"><i class="fa-solid fa-backward"></i></button>
             <button id="BtnStop"><i class="fa-solid fa-stop"></i></button>
@@ -475,7 +554,7 @@
             }
             function Init() {
 
-                const fftSize = 128;
+
 
 
                 const container = document.getElementById('container');
@@ -504,7 +583,7 @@
                 // });
 
                 // }
-
+                const fftSize = 512;
                 analyser = new THREE.AudioAnalyser(audio, fftSize);
 
                 //
@@ -513,8 +592,8 @@
 
                 uniforms = {
 
-                    tAudioData: { value: new THREE.DataTexture(analyser.data, fftSize / 2, 1, format) }
-
+                    tAudioData: { value: new THREE.DataTexture(analyser.data, fftSize / 3, 1, format) }
+                    //http://www.yanhuangxueyuan.com/doc/Three.js/DataTexture.html
                 };
 
                 const material = new THREE.ShaderMaterial({
@@ -565,11 +644,15 @@
 
             function InitList() {
                 const MusicList = [
-                    { name: "Champs-Elyees", src: "music/elysees.mp3", favorite: false },
+                    { name: "痛苦造就了我們", src: "music/痛苦造就了我們.mp3", favorite: false },
                     { name: "告白氣球", src: "music/airball.mp3", favorite: false },
-                    { name: "帶你去旅行", src: "music/travel.mp3", favorite: false },
+                    { name: "假朋友真兄弟", src: "music/假朋友真兄弟.mp3", favorite: false },
                     { name: "私奔到月球", src: "music/moon.mp3", favorite: false },
                     { name: "Nothing Ganna Change My Love For You", src: "music/nothing.mp3", favorite: false },
+                    { name: "搖啊搖", src: "music/搖啊搖.mp3", favorite: false },
+                    { name: "星球墜落", src: "music/星球墜落.mp3", favorite: false },
+                    { name: "月亮代表我的心", src: "music/月亮代表我的心.mp3", favorite: false },
+
                 ]
                 let str = "";
                 let SelectStr = "";
@@ -596,11 +679,13 @@
                 event.preventDefault();
                 console.log(event);
                 let data = event.dataTransfer.getData("song");
-                console.log(event.target)
-                if (event.target.id == "Mysongs" || "SongList")
+                if (!event.target.draggable) {
                     event.target.appendChild(document.getElementById(data));
-                else
+                }
+                else {
+
                     event.target.parentNode.appendChild(document.getElementById(data));
+                }
             }
 
         }
